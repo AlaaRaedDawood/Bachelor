@@ -17,27 +17,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
+DB_Helper db ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //create db
+       // db = new DB_Helper(this , null , null , 1);
         setContentView(R.layout.activity_main);
         CoordinatorLayout constraintLayout = (CoordinatorLayout)findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(3000);
         animationDrawable.start();
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
         final Animation anime_translate = AnimationUtils.loadAnimation(this ,R.anim.anime_translate);
         Button buttonStart = (Button)(findViewById(R.id.button_start));
         buttonStart.setOnClickListener(new View.OnClickListener() {
