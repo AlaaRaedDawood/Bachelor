@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:background="@android:color/transparent"
+            android:drawableBottom="@drawable/ic_arrow_back_white"
+            android:id="@+id/button_back"
+            />
+
+    </LinearLayout>
+
+    <com.example.start.LayOutCanvasResult
+        android:id="@+id/getmeasure_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="8dp"
+        android:background="#fafafa"
+        app:layout_constraintBottom_toTopOf="@+id/button_layout_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.643" />
+
+
+
+    <Button
+        android:id="@+id/button_layout_next"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/button_shape_for_canvas"
+        android:text="@string/nextButton"
+        android:textSize="25dp"
+        android:textColor="#fafafa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <!--<Button-->
+    <!--android:id="@+id/button_layout_reset"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_marginEnd="32dp"-->
+    <!--android:layout_marginRight="32dp"-->
+    <!--android:layout_marginBottom="27dp"-->
+    <!--android:background="@drawable/button_shape_for_canvas"-->
+    <!--android:text="Reset"-->
+    <!--android:textColor="#fafafa"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/button_layout_next"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/button2" />-->
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="36dp"
+        android:text="Click on Line to Insert measures"
+        android:textColor="#fafafa"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/getmeasure_canvas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
+
+
+</android.support.constraint.ConstraintLayout>
