@@ -25,10 +25,7 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_layout);
         CoordinatorLayout constraintLayout = (CoordinatorLayout)findViewById(R.id.drawlayout_Layout);
-//        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-//        animationDrawable.setEnterFadeDuration(2000);
-//        animationDrawable.setExitFadeDuration(3000);
-//        animationDrawable.start();
+
         final LayoutCanvas canvas = (LayoutCanvas) findViewById(R.id.draw_canvas);
         button_back = (Button) findViewById(R.id.button_back);
         button_back.setOnClickListener(new View.OnClickListener() {

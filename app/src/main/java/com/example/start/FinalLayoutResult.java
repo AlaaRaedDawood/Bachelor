@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,11 @@ public class FinalLayoutResult extends AppCompatActivity {
                 return true;
             }
         });
-        Log.i("alaa" , "5rrrrrrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaa");
+        Button saveButton = (Button) findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+            }});
 //
     }
 }

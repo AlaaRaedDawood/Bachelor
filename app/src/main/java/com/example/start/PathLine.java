@@ -13,6 +13,9 @@ public class PathLine {
         this.lineId = lineId;
         this.checked = false ;
     }
+    public void setSize(float s){
+        this.size = s ;
+    }
     public PointF getPoint1(){
         return point1 ;
     }
@@ -28,6 +31,7 @@ public class PathLine {
     public void setChecked (boolean f){
         checked = f ;
     }
+    //check if the pathline alreadyExist
     public boolean checkexist(PathLine p){
         if((this.point1.equals(p.point1))&&(this.point2.equals(p.point2))){
             return true ;
@@ -37,4 +41,6 @@ public class PathLine {
         }
         return false ;
     }
+
+
 }

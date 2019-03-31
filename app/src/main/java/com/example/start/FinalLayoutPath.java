@@ -15,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import java.util.ArrayList;
-
+//the final Layout
 public class FinalLayoutPath extends View {
     private Paint paint ;
     private float[] measures ;
@@ -24,6 +24,8 @@ public class FinalLayoutPath extends View {
     private ArrayList<PathLine> resultPath = new ArrayList<PathLine>();
     ArrayList<Region> regions = new ArrayList<Region>();
     int createRegion = 0 ;
+    //diagnole that shall be removed
+    private int removeDiagnole = -1 ;
     private ArrayList<PathLine> diagnoleLines = new ArrayList<PathLine>();
     ArrayList<IntersectedPoints> intersectPoints = new ArrayList<IntersectedPoints>();
     private   ArrayList<PointF> startPoints = new ArrayList<PointF>();
@@ -63,21 +65,23 @@ public class FinalLayoutPath extends View {
 //                    Log.i("alaa" , "line id = " +pathLines.get(i).getLineid()  );
 //                }
                     for (int i = 0; i < diagnoleLines.size(); i++) {
-                        Log.i("alaa", "d1 x= " + diagnoleLines.get(i).getPoint1().getX() + " y = " + diagnoleLines.get(i).getPoint1().getY());
-                        Log.i("alaa", "d2 x= " + diagnoleLines.get(i).getPoint2().getX() + " y = " + diagnoleLines.get(i).getPoint2().getY());
+                        Log.i("d", "size of diagnoleeee " + diagnoleLines.get(i).getSize() );
+
+                        Log.i("d", "d1 x= " + diagnoleLines.get(i).getPoint1().getX() + " y = " + diagnoleLines.get(i).getPoint1().getY());
+                        Log.i("d", "d2 x= " + diagnoleLines.get(i).getPoint2().getX() + " y = " + diagnoleLines.get(i).getPoint2().getY());
                     }
                     createResultPath();
                 }
-                for (int i = 0; i < resultPoints.size(); i++) {
+                for (int i = 0; i < pathLines.size(); i++) {
 
                     String index = Integer.toString(i);
                     int d = 20;
-                    if (i < pathLines.size()) {
+
                         paint.setTextSize(70);
                         paint.setColor(Color.GREEN);
                         canvas.drawText(index, resultPoints.get(i).getX() + d, resultPoints.get(i).getY(), paint);
 
-                    }
+
                     paint.setColor(Color.GRAY);
                     for (int radius = 0; radius < 41; radius++) {
                         canvas.drawCircle(resultPoints.get(i).getX(), resultPoints.get(i).getY(), radius, paint);
@@ -172,6 +176,7 @@ public class FinalLayoutPath extends View {
         }
     }
       public  void checkDiagnolePath() {
+        if(pathLines.size() > 3){
           for (int i = 0; i < pathLines.size(); i++) {
               for (int j = i + 1; j < pathLines.size(); j++) {
                   PointF path1_p1 = pathLines.get(i).getPoint1();
@@ -212,7 +217,7 @@ public class FinalLayoutPath extends View {
                       }
                   }
               }
-          }
+          }}
       }
     public void createResultPath(){
 
@@ -280,9 +285,15 @@ public class FinalLayoutPath extends View {
 
 
     }
-public boolean checkinDiagnole(ArrayList<PathLine> p , PathLine x){
+    //check if there exist a diagnole with same points but bigger size
+public boolean checkinDiagnole(ArrayList<PathLine> p , PathLine d){
         for(int i = 0 ; i < p.size() ; i++){
-            if(p.get(i).checkexist(x)){
+            if(p.get(i).checkexist(d)){
+                PathLine path = p.get(i);
+                if(d.getSize() > path.getSize()){
+                    diagnoleLines.get(i).setSize(d.getSize());
+
+                }
                 return true ;
             }
         }
@@ -306,5 +317,13 @@ public boolean checkinDiagnole(ArrayList<PathLine> p , PathLine x){
     }
     public int getSize(){
         return pathLines.size();
+    }
+    //returns array with the resultPoints that used in drawing the canvas
+    public PointF[] getResultPoint(){
+        PointF[] result = new PointF[pathLines.size()];
+        for(int i = 0 ; i < pathLines.size() ; i++){
+           result[i] = resultPoints.get(i);
+        }
+        return result;
     }
 }
