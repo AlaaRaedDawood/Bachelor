@@ -41,6 +41,16 @@ DB_Helper db ;
 
             }
         });
+        Button buttonProfile = (Button)(findViewById(R.id.button_profile));
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                v.startAnimation(anime_translate);
+                Intent i = new Intent(MainActivity.this , profileActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 
 //    @Override
