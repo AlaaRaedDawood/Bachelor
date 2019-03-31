@@ -9,6 +9,7 @@
     <string name="text_measure_layout">Click on Line to Insert measures</string>
     <string name="nextButton">Next</string>
     <string name="saveButton">Save</string>
+    <string name="editButton">Edit</string>
     <string name="name" >Name</string>
     <string name="gender" >Gender</string>
     <string name="male" >Male</string>
