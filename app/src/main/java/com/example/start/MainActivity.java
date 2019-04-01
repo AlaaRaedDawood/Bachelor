@@ -22,7 +22,7 @@ DB_Helper db ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //create db
-       // db = new DB_Helper(this , null , null , 1);
+        //db = new DB_Helper(this , null , null , 1);
         setContentView(R.layout.activity_main);
         CoordinatorLayout constraintLayout = (CoordinatorLayout)findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();

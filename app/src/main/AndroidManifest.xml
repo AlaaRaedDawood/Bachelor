@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.start">
-
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -16,17 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".PrintMarkers"
+            android:label="@string/title_activity_print_markers"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FinalLayoutResult"
             android:label="@string/title_activity_final_layout_result"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ResultLayoutActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".LayOutForMeasuresActivity"
             android:label="@string/title_activity_lay_out_for_measures"

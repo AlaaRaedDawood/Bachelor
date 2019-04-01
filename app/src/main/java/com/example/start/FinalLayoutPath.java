@@ -319,11 +319,17 @@ public boolean checkinDiagnole(ArrayList<PathLine> p , PathLine d){
         return pathLines.size();
     }
     //returns array with the resultPoints that used in drawing the canvas
-    public PointF[] getResultPoint(){
-        PointF[] result = new PointF[pathLines.size()];
+    public ArrayList<PointF> getResultPoint(){
+        ArrayList<PointF> result = new ArrayList<PointF>();
         for(int i = 0 ; i < pathLines.size() ; i++){
-           result[i] = resultPoints.get(i);
+           result.add( resultPoints.get(i));
         }
         return result;
+    }
+    public ArrayList<PointF> getStartPointsPoint(){
+        return startPoints;
+    }
+    public ArrayList<PointF> getStopPointsPoint(){
+        return stopPoints;
     }
 }

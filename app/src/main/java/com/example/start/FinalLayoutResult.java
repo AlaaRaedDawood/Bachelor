@@ -1,12 +1,19 @@
 package com.example.start;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Region;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -48,11 +55,62 @@ public class FinalLayoutResult extends AppCompatActivity {
                 return true;
             }
         });
-        Button saveButton = (Button) findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText text = new EditText(this);
+        final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
+        Button btn_save = (Button) findViewById(R.id.saveButton);
+        btn_save.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-            }});
+
+                Log.i("alaa","save button is clicked");
+                //make alpha animation
+                v.startAnimation(anime_alpha);
+                //show a dialogue that takes from the user the name of the layout
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        builder.setMessage("the name of the layout  ").setView(text);
+                        builder.setPositiveButton("DONE",
+                                null);
+
+
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Boolean flag = (text.getText().toString().trim().isEmpty());
+                                // if EditText is empty disable closing on possitive button
+                                if (!flag) {
+
+                                    String layout_title = text.getText().toString();
+                                    layoutTableDB layout = new layoutTableDB(layout_title ,canvas.getResultPoint() ,
+                                            canvas.getStartPointsPoint() ,canvas.getStopPointsPoint());
+
+                                    alert.dismiss();
+                                    //start intent that returns to main activity
+                                    finish();
+                                    Intent i = new Intent(FinalLayoutResult.this , MainActivity.class);
+                                    startActivity(i);
+
+
+                                }
+
+                            }
+                        });
+
+
+                    }
+                }, 500);
+
+
+
+            }
+        });
 //
     }
 }
