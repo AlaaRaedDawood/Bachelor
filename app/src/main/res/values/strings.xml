@@ -16,4 +16,5 @@
     <string name="female">Female</string>
     <string name="title_activity_profile">profileActivity</string>
     <string name="title_activity_print_markers">PrintMarkers</string>
+    <string name="title_activity_choose_layout">ChooseLayoutActivity</string>
 </resources>

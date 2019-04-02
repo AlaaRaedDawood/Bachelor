@@ -51,6 +51,17 @@ DB_Helper db ;
 
             }
         });
+        Button buttonChooseLayout = (Button)(findViewById(R.id.button_chooseLayout));
+        buttonChooseLayout.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                v.startAnimation(anime_translate);
+                Intent i = new Intent(MainActivity.this , ChooseLayoutActivity.class);
+                startActivity(i);
+
+            }
+        });
+
     }
 
 //    @Override
