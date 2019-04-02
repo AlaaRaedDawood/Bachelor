@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.List;
-
+//the activity that allows the user to choose from the layout that available in db
 public class ChooseLayoutActivity extends AppCompatActivity {
     private HiitViewModel hiitViewModel ;
     @Override
@@ -28,6 +28,12 @@ public class ChooseLayoutActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         hiitViewModel = ViewModelProviders.of(this).get(HiitViewModel.class);
+        adapter.setOnItemClickListener(new LayoutAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(layoutTableDB layout) {
+              hiitViewModel.delete(layout);
+            }
+        });
         hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
             @Override
             public void onChanged(@Nullable List<layoutTableDB> layouts) {
