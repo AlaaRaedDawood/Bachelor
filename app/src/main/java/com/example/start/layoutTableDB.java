@@ -1,16 +1,22 @@
 package com.example.start;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
+
 import java.util.ArrayList;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
 
 //create entity class
 @Entity(tableName = "layout_table")
+
 public class layoutTableDB {
     @PrimaryKey(autoGenerate = true)
     private int id ;
     private  String layout_name ;
-    private ArrayList<PointF> startPoints = new ArrayList<PointF>();
+
+    public ArrayList<PointF> startPoints = new ArrayList<PointF>();
     private ArrayList<PointF> stopPoints = new ArrayList<PointF>();
    private ArrayList<PointF> resultPoints = new ArrayList<PointF>();
    private int used ;
@@ -21,6 +27,10 @@ public class layoutTableDB {
        this.stopPoints=stopPoints;
        this.used = 1 ;
    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
