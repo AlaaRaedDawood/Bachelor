@@ -10,18 +10,20 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 
-@Database(entities = {layoutTableDB.class} ,version = 1)
+@Database(entities = {layoutTableDB.class , ProfileTableDb.class} ,version = 1)
 @TypeConverters(listConverter.class)
 public abstract class HiitDB extends RoomDatabase {
     //this variable is created to turn the class singelton
     private static HiitDB instance ;
-    //this let us access our dao
+    //this let us access our layout dao
     public abstract layoutDAO layoutdao();
+    //this let us access our profile dao
+    public abstract profileDAO profiledao();
     //create a database
     public static synchronized HiitDB getInstance(Context context){
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    HiitDB.class, "hiit_database")
+                    HiitDB.class, "hiit_db")
                     .fallbackToDestructiveMigration()
                     .build();
         }
@@ -37,16 +39,14 @@ public abstract class HiitDB extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private layoutDAO layoutdao;
-
+        private profileDAO profiledao ;
         private PopulateDbAsyncTask(HiitDB db) {
             layoutdao = db.layoutdao();
+            profiledao = db.profiledao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-//            noteDao.insert(new Note("Title 1", "Description 1", 1));
-//            noteDao.insert(new Note("Title 2", "Description 2", 2));
-//            noteDao.insert(new Note("Title 3", "Description 3", 3));
             return null;
         }
     }

@@ -108,9 +108,9 @@ public class FinalLayoutResult extends AppCompatActivity {
                                     String layout_title = text.getText().toString();
                                     layoutTableDB layout = new layoutTableDB(layout_title ,canvas.getResultPoint() ,
                                             canvas.getStartPointsPoint() ,canvas.getStopPointsPoint());
-                                    Log.i("alaa" , "layout saved" + layout_title);
+
                                     if(layout != null){
-                                        Log.i("alaa" , "failerdd" + layout_title);
+                                       
                                       hiitViewModel.insert(layout);
 
                                         Log.i("alaa" , "layout saved");

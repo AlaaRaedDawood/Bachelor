@@ -9,12 +9,17 @@ import java.util.List;
 
 public class layoutRepository {
     private layoutDAO layoutDao;
+    private profileDAO profiledao;
     private LiveData<List<layoutTableDB>> allLayout;
+    private LiveData<List<ProfileTableDb>> allProfile;
 
     public layoutRepository(Application application) {
         HiitDB database = HiitDB.getInstance(application);
         layoutDao = database.layoutdao();
         allLayout = layoutDao.getAllLayout();
+        profiledao = database.profiledao();
+        allProfile = profiledao.getProfile();
+
     }
 
     public void insert(layoutTableDB layoutTableDB) {
@@ -35,6 +40,24 @@ public class layoutRepository {
 
     public LiveData<List<layoutTableDB>> getAllLayouts() {
         return allLayout;
+    }
+    //Profile
+    public void insertProfile(ProfileTableDb profileTableDb) {
+        new layoutRepository.InsertProfileAsyncTask(profiledao).execute(profileTableDb);
+    }
+
+    public void updateProfile(ProfileTableDb profileTableDb) {
+        new layoutRepository.UpdateProfileAsyncTask(profiledao).execute(profileTableDb);
+    }
+
+    public void deleteProfile(ProfileTableDb profileTableDb) {
+        new layoutRepository.DeleteProfileAsyncTask(profiledao).execute(profileTableDb);
+    }
+
+
+    public LiveData<List<ProfileTableDb>> getAllProfiles() {
+
+        return allProfile;
     }
 
     private static class InsertNoteAsyncTask extends AsyncTask<layoutTableDB, Void, Void> {
@@ -92,4 +115,46 @@ public class layoutRepository {
             return null;
         }
     }
+    //Profile
+    private static class InsertProfileAsyncTask extends AsyncTask<ProfileTableDb, Void, Void> {
+        private profileDAO profiledao;
+
+        private InsertProfileAsyncTask(profileDAO profiledao) {
+            this.profiledao = profiledao;
+        }
+
+        @Override
+        protected Void doInBackground(ProfileTableDb... profiles) {
+            profiledao.insert(profiles[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateProfileAsyncTask extends AsyncTask<ProfileTableDb, Void, Void> {
+        private profileDAO profiledao;
+
+        private UpdateProfileAsyncTask(profileDAO profiledao) {
+            this.profiledao = profiledao;
+        }
+
+        @Override
+        protected Void doInBackground(ProfileTableDb... profiles) {
+            profiledao.update(profiles[0]);
+            return null;
+        }
+    }
+    private static class DeleteProfileAsyncTask extends AsyncTask<ProfileTableDb, Void, Void> {
+        private profileDAO profiledao;
+
+        private DeleteProfileAsyncTask(profileDAO profiledao) {
+            this.profiledao = profiledao;
+        }
+
+        @Override
+        protected Void doInBackground(ProfileTableDb... profiles) {
+            profiledao.delete(profiles[0]);
+            return null;
+        }
+    }
+
 }
