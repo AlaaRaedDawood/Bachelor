@@ -2,13 +2,17 @@ package com.example.start;
 
 public class PathLine {
     private PointF point1 ;
+    private int point1ID ;
     private PointF point2 ;
+    private int point2ID ;
     private float size ;
     private int lineId ;
     private boolean checked ;
-    public PathLine(PointF point1 ,PointF point2  , float size , int lineId){
+    public PathLine(PointF point1 ,int point1ID,PointF point2 ,int point2ID , float size , int lineId){
          this.point1 = point1;
+         this.point1ID = point1ID ;
         this.point2 = point2;
+        this.point2ID = point2ID ;
         this.size = size;
         this.lineId = lineId;
         this.checked = false ;
@@ -21,6 +25,12 @@ public class PathLine {
     }
     public PointF getPoint2(){
         return point2 ;
+    }
+    public int getPoint1ID(){
+        return point1ID ;
+    }
+    public int getPoint2ID(){
+        return point2ID ;
     }
     public float getSize(){
         return size ;

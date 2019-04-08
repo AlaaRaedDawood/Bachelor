@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,11 +11,20 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-
+import java.util.Stack;
+//the layout used for the user to draw the desired layout
 public class LayoutCanvas extends View {
     private Paint paint ;
+    private int intersectPointID = 0;
+//   private ArrayList<ArrayList<Integer> > aList =
+//            new ArrayList<ArrayList<Integer> >();
+//Stack contains array  the id of the lines that each intersection happened with
+private Stack<int[]> donewithSTACK = new Stack<int[]>();
+    //array that conntains the intersected point value and the index of lines that are connected with this point
 private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints>();
+    //array contaions the id of the lines that the current intersection happened with
     private ArrayList<Integer> donewith = new ArrayList<Integer>();
+    //array contaions the points (x,y)of new line that caused intersection
     private ArrayList<PointF> intersectPoints = new ArrayList<PointF>();
   private   ArrayList<PointF> startPoints = new ArrayList<PointF>();
     private  ArrayList<PointF> stopPoints = new ArrayList<PointF>();
@@ -63,6 +69,7 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
                 for(int i = 0 ; i < startPoints.size()-1 ; i++){
                     PointF startPoint = startPoints.get(i);
                     PointF stopPoint = stopPoints.get(i);
+                    //the conditions from which we know an intersect point is being drawn
                     boolean flagX1 = (xPos >= Math.min( startPoint.getX(),stopPoint.getX())) && (xPos <= Math.max( startPoint.getX(),stopPoint.getX()));
                     boolean flagX2 = (Math.max(stopPoint.getX(),xPos) - Math.min(stopPoint.getX(),xPos) < 14);
                     boolean flagX3 = (Math.max(startPoint.getX(),xPos) - Math.min(startPoint.getX(),xPos) < 14);
@@ -83,10 +90,18 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
                 stopPoints.add(new PointF(xPos,yPos));
                 Log.i("alaat" , "ACTION_UP  " + xPos + "y5tyyyy =" + yPos);
                 if(intersectPoints.size() != 0){
+                    Log.i("alaaaa" , "before pushing " +donewith.size());
+                    int[] done = new int[donewith.size()];
+
                     for(int i = 0 ; i < donewith.size();i++){
+                        done[i] = donewith.get(i);
                         PointF intersecttP = intersectPoints.get((intersectPoints.size()-1)-i);
-                        intersect.add(new IntersectedPoints(intersecttP, startPoints.size()-1 ,donewith.get((donewith.size()-1)-i)));
-                    }}
+                        intersectPointID += 1 ;
+                        intersect.add(new IntersectedPoints(intersecttP, startPoints.size()-1 ,donewith.get((donewith.size()-1)-i) , intersectPointID));
+                    }
+                    donewithSTACK.push(done);
+                }
+
                 donewith.clear();
                 break;
             default:
@@ -109,24 +124,36 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
     }
 
     public void resetDrawing(){
-        int size = startPoints.size()-1;
-        ArrayList<Integer> k = new ArrayList<Integer>() ;
-        startPoints.remove(size);
-        stopPoints.remove(size);
-        for(int i=0 ;i<intersect.size();i++){
-            if(intersect.get(i).getIndexOfLine1()==size || intersect.get(i).getIndexOfLine2() ==size){
-                k.add(i);
-
+        Log.i("alaa" ,"intersectedpoints" + intersectPoints.size());
+        if(!(donewithSTACK.empty())) {
+            Log.i("aaaaaaaaaaaaa" , "donewithSTACK is "+ donewithSTACK.size());
+            int[] x = donewithSTACK.pop();
+            int xsize = x.length;
+            Log.i("aaaaaaaaaaaaa" , "xsize is "+ x.length);
+            for (int i = 0; i < xsize; i++) {
+                intersect.remove((intersect.size() - 1));
+                Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());
+                intersectPoints.remove((intersectPoints.size() - 1));
             }
         }
-        for(int i =0 ; i<k.size();i++){
-            PointF inters = intersect.get(k.get(i)).getPoint();
-            intersectPoints.remove(inters);
-            intersect.remove(k.get(i));
+//        Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());
+            Log.i("alaa", "intersectedpoints" + intersectPoints.size());
+            stopPoints.remove(stopPoints.size() - 1);
+            startPoints.remove(startPoints.size() - 1);
+            invalidate();
+        }
 
-         }
+    public void clearDrawing(){
+            donewithSTACK.clear();
+            startPoints.clear();
+            stopPoints.clear();
+            intersect.clear();
+            intersectPoints.clear();
+            invalidate();
 
     }
+}
+
 //
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
@@ -168,5 +195,5 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
 //    public ArrayList<Float> getYstop(){
 //        return ystop ;
 //    }
-}
+
 

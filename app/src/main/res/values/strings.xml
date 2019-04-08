@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Start</string>
     <string name="action_settings">Settings</string>
+    <string name="reset">Reset</string>
+    <string name="clear">Clear</string>
     <string name="title_activity_draw_layout">DrawLayout</string>
     <string name="title_activity_lay_out_for_measures">LayOutForMeasuresActivity</string>
     <string name="title_activity_layouttmeasures">Layouttmeasures</string>
@@ -13,8 +15,10 @@
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
+
     <string name="female">Female</string>
     <string name="title_activity_profile">profileActivity</string>
     <string name="title_activity_print_markers">PrintMarkers</string>
     <string name="title_activity_choose_layout">ChooseLayoutActivity</string>
+
 </resources>

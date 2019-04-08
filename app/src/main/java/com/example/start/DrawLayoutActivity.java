@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class DrawLayoutActivity extends AppCompatActivity {
@@ -34,6 +36,25 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                finish();
             }});
         final Animation anime_translate = AnimationUtils.loadAnimation(this ,R.anim.anime_translate);
+       Button button_reset = (Button) findViewById(R.id.button_reset);
+        button_reset.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                startPoints = canvas.getStartPoints();
+                if(startPoints.size() != 0) {
+                    canvas.resetDrawing();
+                }else {
+                    Toast toast=Toast.makeText(getApplicationContext(),"the layout is empty",Toast.LENGTH_SHORT);
+                   // toast.setMargin(50,50);
+                    toast.show();
+                }
+            }});
+        Button button_clear = (Button) findViewById(R.id.button_clear);
+        button_clear.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                canvas.clearDrawing();
+            }});
         button_next = (Button) findViewById(R.id.button_layout_next);
          button_next.setOnClickListener(new View.OnClickListener() {
 
@@ -44,11 +65,12 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                 ArrayList<IntersectedPoints> intersectedPoints = canvas.getIntersectedPoints();
                 // Start NewActivity.class
 
-//                xstart =  canvas.getXstart();
-//                ystart = canvas.getYstart();
-//                xstop = canvas.getXstop();
-//                ystop = canvas.getYstop();
-               // Log.i("alaa", "ssizzee of x is " + xstart.size());
+
+                if(startPoints.size() != intersectedPoints.size()){
+                    Toast toast=Toast.makeText(getApplicationContext(),"the layout must be closed path",Toast.LENGTH_SHORT);
+                    //toast.setMargin(50,50);
+                    toast.show();
+                }else{
                 if(startPoints.size() !=  0) {
 
                     v.startAnimation(anime_translate);
@@ -58,8 +80,12 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                     intent.putExtra("intersectedPoints" ,intersectedPoints);
                     startActivity(intent);
                     //Log.i("alaa", "ssizzee of x is " + xstart.size());
+                }else {
+                    Toast toast=Toast.makeText(getApplicationContext(),"the layout is empty",Toast.LENGTH_SHORT);
+                    //toast.setMargin(50,50);
+                    toast.show();
                 }
-            }
+            }}
         });
 
 

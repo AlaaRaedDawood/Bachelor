@@ -42,7 +42,7 @@
         app:layout_constraintVertical_bias="0.643" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_reset"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="228dp"
@@ -53,16 +53,16 @@
         android:layout_marginBottom="34dp"
         android:background="@drawable/round_button"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Reset"
+        android:text="@string/reset"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/button_clear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/draw_canvas"
         app:layout_constraintVertical_bias="0.196" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_clear"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="323dp"
@@ -73,7 +73,7 @@
         android:layout_marginBottom="34dp"
         android:background="@drawable/round_button"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Clear"
+        android:text="@string/clear"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

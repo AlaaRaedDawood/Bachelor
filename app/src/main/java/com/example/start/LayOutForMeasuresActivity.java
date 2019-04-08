@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,8 +48,17 @@ Button button_back ;
            boolean flag = true ;
             public void onClick(View v) {
                 float[] measures = canvas.getResultMeasure() ;
+                if(measures.length == 0){
+                    Toast toast=Toast.makeText(getApplicationContext(),"make sure to enter all sizes",Toast.LENGTH_SHORT);
+                    //toast.setMargin(50,50);
+                    toast.show();
+                    flag = false ;
+                }
                 for (int i =0 ; i < measures.length ; i++){
                     if(measures[i] == 0){
+                        Toast toast=Toast.makeText(getApplicationContext(),"make sure to enter all sizes",Toast.LENGTH_SHORT);
+                        //toast.setMargin(50,50);
+                        toast.show();
                         flag = false ;
                         break;
                     }

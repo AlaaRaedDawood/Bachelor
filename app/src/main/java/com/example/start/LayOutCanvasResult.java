@@ -14,7 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import java.util.ArrayList;
-///canvas for taking measures
+///canvas for taking measures for the users
 public class LayOutCanvasResult extends View {
     private Paint paint ;
     private Path path ;
