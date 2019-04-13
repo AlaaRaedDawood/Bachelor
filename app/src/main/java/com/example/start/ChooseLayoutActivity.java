@@ -2,6 +2,7 @@ package com.example.start;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
     private HiitViewModel hiitViewModel ;
     private layoutTableDB choosenLayout ;
     private int profileSize ;
+    private int layoutSize = 0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,16 @@ public class ChooseLayoutActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         hiitViewModel = ViewModelProviders.of(this).get(HiitViewModel.class);
+        hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
+            @Override
+            public void onChanged(@Nullable List<layoutTableDB> layouts) {
+                layoutSize = layouts.size();
+                if(layoutSize > 0){
+                adapter.setLayouts(layouts);
+            }}
+        });
+        final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
+
         adapter.setOnItemClickListener(new LayoutAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(layoutTableDB layout) {
@@ -41,18 +55,32 @@ public class ChooseLayoutActivity extends AppCompatActivity {
             }
         });
         Button delete_btn = (Button) findViewById(R.id.deleteButton);
-        delete_btn.setOnClickListener(new View.OnClickListener() {
+        Button view_btn = (Button) findViewById(R.id.viewButton);
 
-            public void onClick(View v) {
-                hiitViewModel.delete(choosenLayout);
-            }});
-        hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer profilesize) {
-                profileSize = profilesize ;
-                Log.i("DB" , "the profile size is " + profilesize);
+        if(layoutSize > 0) {
+            delete_btn.setOnClickListener(new View.OnClickListener() {
 
-            }});
+                public void onClick(View v) {
+                    v.startAnimation(anime_alpha);
+                    hiitViewModel.delete(choosenLayout);
+                }
+            });
+            view_btn.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    v.startAnimation(anime_alpha);
+
+                }
+            });
+        }
+//        hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
+//            @Override
+//            public void onChanged(@Nullable Integer profilesize) {
+//                profileSize = profilesize ;
+//                Log.i("DB" , "the profile size is " + profilesize);
+//
+//            }});
+
         Button add_btn = (Button) findViewById(R.id.addLayoutButton);
         add_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -61,15 +89,15 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                     Toast toast=Toast.makeText(getApplicationContext(),"a profile must be saved",Toast.LENGTH_SHORT);
                     // toast.setMargin(50,50);
                     toast.show();
+                }else {
+                    v.startAnimation(anime_alpha);
+                    Intent intent = new Intent(ChooseLayoutActivity.this , DrawLayoutActivity.class);
+                    startActivity(intent);
                 }
 
             }});
-        hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
-            @Override
-            public void onChanged(@Nullable List<layoutTableDB> layouts) {
-                adapter.setLayouts(layouts);
-            }
-        });
+
+
     }
     }
 
