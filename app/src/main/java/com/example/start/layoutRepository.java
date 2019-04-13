@@ -3,6 +3,8 @@ package com.example.start;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,14 @@ public class layoutRepository {
     private profileDAO profiledao;
     private LiveData<List<layoutTableDB>> allLayout;
     private LiveData<List<ProfileTableDb>> allProfile;
-
+    private LiveData<Integer> profileCount;
     public layoutRepository(Application application) {
         HiitDB database = HiitDB.getInstance(application);
         layoutDao = database.layoutdao();
         allLayout = layoutDao.getAllLayout();
         profiledao = database.profiledao();
         allProfile = profiledao.getProfile();
+        profileCount = profiledao.getProfileRowsCount();
 
     }
 
@@ -54,6 +57,10 @@ public class layoutRepository {
         new layoutRepository.DeleteProfileAsyncTask(profiledao).execute(profileTableDb);
     }
 
+    public LiveData<Integer> getProfileRowsCount(){
+        Log.i("DB" , ""+ profileCount);
+        return profileCount ;
+    }
 
     public LiveData<List<ProfileTableDb>> getAllProfiles() {
 

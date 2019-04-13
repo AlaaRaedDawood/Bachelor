@@ -42,7 +42,7 @@
 
     <android.support.design.widget.TextInputLayout
 
-        android:id="@+id/profile_name_layout"
+        android:id="@+id/profile_name"
 
         android:layout_width="match_parent"
 
@@ -69,7 +69,7 @@
 
     <android.support.design.widget.TextInputLayout
 
-        android:id="@+id/profile_birthdate_layout"
+        android:id="@+id/profile_height"
 
         android:layout_width="match_parent"
 
@@ -79,6 +79,62 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="220dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+
+            android:id="@+id/editText_profile_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/height"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:id="@+id/profile_weight"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+
+            android:id="@+id/editText_profile_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/weight"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:id="@+id/profile_birthdate_layout"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="360dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="290dp"
+        android:layout_marginTop="430dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:paddingTop="20dp"
@@ -161,7 +217,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginStart="100dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="162dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="50dp"
@@ -182,8 +238,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginStart="100dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="314dp"
-
+        android:layout_marginTop="162dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="50dp"
@@ -197,5 +252,61 @@
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <TextView
+
+        android:id="@+id/backProblems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="510dp"
+        android:fontFamily="@string/name"
+        android:fontFeatureSettings="@string/name"
+        android:paddingRight="15dp"
+        android:text="@string/backproblems"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+
+        android:layout_width="wrap_content"
+        android:layout_height="367dp"
+        android:layout_marginTop="550dp"
+        android:layout_toRightOf="@+id/backProblems"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <RadioButton
+            android:id="@+id/up_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/upperback"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/lower_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/lowerback"
+            android:textColor="#fff" />
+
+        <RadioButton
+
+            android:id="@+id/none_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/none"
+            android:textColor="#fff"
+
+            />
+    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class FinalLayoutResult extends AppCompatActivity {
     private HiitViewModel hiitViewModel;
+    private int profileSize ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -67,73 +68,84 @@ public class FinalLayoutResult extends AppCompatActivity {
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
         Button btn_save = (Button) findViewById(R.id.saveButton);
        // hiitViewModel.deleteAllNotes();
-        hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
+//        hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
+//            @Override
+//            public void onChanged(@Nullable List<layoutTableDB> notes) {
+//                // Update recycler view
+//                //  Toast.makeText(MainActivity.this, "onChanges",Toast.LENGTH_SHORT).show();
+//                if (notes.size() > 0) {
+//                    Log.i("alaadb", " good " +notes.size());
+//
+//                }
+//            }});
+        hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
             @Override
-            public void onChanged(@Nullable List<layoutTableDB> notes) {
-                // Update recycler view
-                //  Toast.makeText(MainActivity.this, "onChanges",Toast.LENGTH_SHORT).show();
-                if (notes.size() > 0) {
-                    Log.i("alaadb", " good " +notes.size());
+            public void onChanged(@Nullable Integer profilesize) {
+                profileSize = profilesize ;
+                Log.i("DB" , "the profile size is " + profilesize);
 
-                }
             }});
         btn_save.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
                 Log.i("alaa","save button is clicked");
-                //make alpha animation
-                v.startAnimation(anime_alpha);
-                //show a dialogue that takes from the user the name of the layout
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                if(profileSize == 1) {
+                    //make alpha animation
+                    v.startAnimation(anime_alpha);
+                    //show a dialogue that takes from the user the name of the layout
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 
 
-                        builder.setMessage("the name of the layout  ").setView(text);
-                        builder.setPositiveButton("DONE",
-                                null);
+                            builder.setMessage("the name of the layout  ").setView(text);
+                            builder.setPositiveButton("DONE",
+                                    null);
 
 
-                        final AlertDialog alert = builder.create();
-                        alert.show();
-                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Boolean flag = (text.getText().toString().trim().isEmpty());
-                                // if EditText is empty disable closing on possitive button
-                                if (!flag) {
+                            final AlertDialog alert = builder.create();
+                            alert.show();
+                            alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Boolean flag = (text.getText().toString().trim().isEmpty());
+                                    // if EditText is empty disable closing on possitive button
+                                    if (!flag) {
 
-                                    String layout_title = text.getText().toString();
-                                    layoutTableDB layout = new layoutTableDB(layout_title ,canvas.getResultPoint() ,
-                                            canvas.getStartPointsPoint() ,canvas.getStopPointsPoint());
+                                        String layout_title = text.getText().toString();
+                                        layoutTableDB layout = new layoutTableDB(layout_title, canvas.getResultPoint(),
+                                                canvas.getStartPointsPoint(), canvas.getStopPointsPoint());
 
-                                    if(layout != null){
-                                       
-                                      hiitViewModel.insert(layout);
+                                        if (layout != null) {
 
-                                        Log.i("alaa" , "layout saved");
-                                    }
+                                            hiitViewModel.insert(layout);
 
-                                    alert.dismiss();
-                                    //start intent that returns to main activity
+                                            Log.i("alaa", "layout saved");
+                                        }
+
+                                        alert.dismiss();
+                                        //start intent that returns to main activity
 //                                    finish();
 //                                    Intent i = new Intent(FinalLayoutResult.this , MainActivity.class);
 //                                    startActivity(i);
 
 
+                                    }
+
                                 }
-
-                            }
-                        });
+                            });
 
 
-                    }
-                }, 500);
+                        }
+                    }, 500);
 
 
-
+                }else {
+                    Toast toast=Toast.makeText(getApplicationContext(),"a profile needed to be saved",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 //

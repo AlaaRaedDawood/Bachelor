@@ -15,10 +15,17 @@
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
-
+<string name="View_layout">View The Layout</string>
     <string name="female">Female</string>
     <string name="title_activity_profile">profileActivity</string>
     <string name="title_activity_print_markers">PrintMarkers</string>
     <string name="title_activity_choose_layout">ChooseLayoutActivity</string>
+    <string name="title_activity_view_layout">ViewLayoutActivity</string>
+    <string name="height">Height</string>
+    <string name="backproblems">Backproblems</string>
+    <string name="upperback">upper back</string>
+    <string name="none">none</string>
+    <string name="lowerback">lower backproblems</string>
+    <string name="weight">Weight</string>
 
 </resources>

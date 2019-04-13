@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ViewLayoutActivity"
+    tools:showIn="@layout/activity_view_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +26,8 @@
             />
 
     </LinearLayout>
-    <com.example.start.LayoutCanvas
+
+    <com.example.start.ViewLayoutCanvas
         android:id="@+id/draw_canvas"
         android:layout_width="match_parent"
         android:layout_height="350dp"
@@ -41,45 +45,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.643" />
 
-    <Button
-        android:id="@+id/button_reset"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginLeft="228dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="34dp"
-        android:background="@drawable/round_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/reset"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_clear"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/draw_canvas"
-        app:layout_constraintVertical_bias="0.196" />
-
-    <Button
-        android:id="@+id/button_clear"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="323dp"
-        android:layout_marginLeft="323dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginBottom="34dp"
-        android:background="@drawable/round_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/clear"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/draw_canvas"
-        app:layout_constraintVertical_bias="0.197" />
 
     <Button
         android:id="@+id/button_layout_next"
@@ -88,34 +53,35 @@
         android:layout_gravity="bottom|end"
         android:layout_marginStart="100dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="27dp"
         android:background="@drawable/button_shape_for_canvas"
         android:text="@string/nextButton"
-        android:textSize="25dp"
         android:textColor="#fafafa"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/draw_canvas" />
 
     <!--<Button-->
-        <!--android:id="@+id/button_layout_reset"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_marginEnd="32dp"-->
-        <!--android:layout_marginRight="32dp"-->
-        <!--android:layout_marginBottom="27dp"-->
-        <!--android:background="@drawable/button_shape_for_canvas"-->
-        <!--android:text="Reset"-->
-        <!--android:textColor="#fafafa"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/button_layout_next"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/button2" />-->
+    <!--android:id="@+id/button_layout_reset"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_marginEnd="32dp"-->
+    <!--android:layout_marginRight="32dp"-->
+    <!--android:layout_marginBottom="27dp"-->
+    <!--android:background="@drawable/button_shape_for_canvas"-->
+    <!--android:text="Reset"-->
+    <!--android:textColor="#fafafa"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/button_layout_next"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/button2" />-->
 
     <TextView
         android:id="@+id/textView"
@@ -125,7 +91,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="36dp"
-        android:text="@string/text_drawLayout"
+        android:text="@string/View_layout"
         android:textColor="#fafafa"
         android:textSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/draw_canvas"

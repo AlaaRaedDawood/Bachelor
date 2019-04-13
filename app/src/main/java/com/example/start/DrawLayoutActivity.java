@@ -45,7 +45,6 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                     canvas.resetDrawing();
                 }else {
                     Toast toast=Toast.makeText(getApplicationContext(),"the layout is empty",Toast.LENGTH_SHORT);
-                   // toast.setMargin(50,50);
                     toast.show();
                 }
             }});

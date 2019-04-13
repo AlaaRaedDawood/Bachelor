@@ -12,14 +12,14 @@ public class HiitViewModel extends AndroidViewModel {
     //private  profileRepository profilerepository;
     private LiveData<List<layoutTableDB>> allLayouts;
     private LiveData<List<ProfileTableDb>> allProfiles;
-    private int profileTableSize ;
+    private LiveData<Integer>   profileTableSize ;
     public HiitViewModel(@NonNull Application application) {
         super(application);
         layoutrepository = new layoutRepository(application);
         //profilerepository = new profileRepository(application);
         allLayouts = layoutrepository.getAllLayouts();
         allProfiles =  layoutrepository.getAllProfiles();
-        //profileTableSize = layoutrepository.getProfileTableSize();
+        profileTableSize = layoutrepository.getProfileRowsCount();
     }
 
     public void insert(layoutTableDB layout) {
@@ -56,7 +56,7 @@ public class HiitViewModel extends AndroidViewModel {
     public LiveData<List<ProfileTableDb>> getAllProfiles() {
         return allProfiles ;
     }
-    public int getProfileSize() {
+    public LiveData<Integer>   getProfileSize() {
         return profileTableSize ;
     }
 }

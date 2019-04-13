@@ -9,7 +9,7 @@ import java.util.List;
 public class profileRepository {
     private profileDAO profiledao;
     private LiveData<List<ProfileTableDb>> allProfile;
-    private int profileTableSize ;
+    private LiveData<Integer> profileTableSize ;
     public profileRepository(Application application) {
         HiitDB database = HiitDB.getInstance(application);
         profiledao = database.profiledao();
@@ -34,7 +34,7 @@ public class profileRepository {
 
         return allProfile;
     }
-    public int getProfileTableSize() {
+    public LiveData<Integer>  getProfileTableSize() {
 
         return profileTableSize;
     }

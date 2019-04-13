@@ -33,6 +33,7 @@ private HiitViewModel hiitViewModel ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
         //return back to menu
         button_back = (Button) findViewById(R.id.button_back);
@@ -74,26 +75,51 @@ private HiitViewModel hiitViewModel ;
             }});
 
         hiitViewModel = of(this).get(HiitViewModel.class);
+        hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer profilesize) {
+                Log.i("DB" , "the profile size is " + profilesize);
+
+            }});
    final Button btn_save = (Button)findViewById(R.id.button_save);
    final Button btn_edit = (Button)findViewById(R.id.button_edit);
    final EditText userName_et = ((EditText)findViewById(R.id.editText_profile_name));
    final EditText birthdate_et = ((EditText)findViewById(R.id.editText_birthdateText));
+   final EditText height_et = ((EditText)findViewById(R.id.editText_profile_height));
+   final EditText weight_et = ((EditText)findViewById(R.id.editText_profile_weight));
    final RadioButton female_rb= (RadioButton) findViewById(R.id.female_radio_btn);
    final RadioButton male_rb= (RadioButton) findViewById(R.id.male_radio_btn);
+   final RadioButton upper_rb= (RadioButton) findViewById(R.id.up_radio_btn);
+   final RadioButton lower_rb= (RadioButton) findViewById(R.id.lower_radio_btn);
+   final RadioButton none_rb= (RadioButton) findViewById(R.id.none_radio_btn);
+
     btn_save.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
          String name = userName_et.getText().toString();
          String birthdate = birthdate_et.getText().toString();
-         String gender ;
+         int height = Integer.parseInt(height_et.getText().toString());
+         int weight = Integer.parseInt(weight_et.getText().toString());
+         String gender = "";
 
          if(female_rb.isChecked()){
              gender = "female" ;
          }else {
              gender = "male";
          }
+         String backProblems = "" ;
+         if(upper_rb.isChecked()){
+             backProblems = "upper";
+         }
+         if(lower_rb.isChecked()){
+             backProblems = "lower";
+         }if (none_rb.isChecked()){
+                backProblems = "none";
+            }
+
+
          //create new Profile
-         ProfileTableDb profile = new ProfileTableDb(name,gender,birthdate);
+         ProfileTableDb profile = new ProfileTableDb(name,height,weight,gender,birthdate,backProblems);
          hiitViewModel.insertProfile(profile);
         }
     });
@@ -101,6 +127,8 @@ private HiitViewModel hiitViewModel ;
             @Override
             public void onClick(View v) {
                 String name = userName_et.getText().toString();
+                int height = Integer.parseInt(height_et.getText().toString());
+                int weight = Integer.parseInt(weight_et.getText().toString());
                 String birthdate = birthdate_et.getText().toString();
                 String gender ;
 
@@ -109,16 +137,27 @@ private HiitViewModel hiitViewModel ;
                 }else {
                     gender = "male";
                 }
+                String backProblems = "" ;
+                if(upper_rb.isChecked()){
+                    backProblems = "upper";
+                }
+                if(lower_rb.isChecked()){
+                    backProblems = "lower";
+                }if (none_rb.isChecked()){
+                    backProblems = "none";
+                }
+
                 //update new Profile
                 if(profileId != -1){
-                ProfileTableDb profile = new ProfileTableDb(name,gender,birthdate);
+                ProfileTableDb profile = new ProfileTableDb(name,height,weight,gender,birthdate,backProblems);
                 profile.setId(profileId);
                 hiitViewModel.updateProfile(profile);
             }
             }
         });
 
-         hiitViewModel.getAllProfiles().observe(this , new Observer<List<ProfileTableDb>>() {
+
+                hiitViewModel.getAllProfiles().observe(this , new Observer<List<ProfileTableDb>>() {
              @Override
              public void onChanged(@Nullable List<ProfileTableDb> profiles) {
 

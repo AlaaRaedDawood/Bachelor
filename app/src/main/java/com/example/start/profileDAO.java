@@ -20,7 +20,7 @@ public interface profileDAO {
     @Delete
     void delete(ProfileTableDb profile);
     @Query("SELECT COUNT (*) FROM profile_table")
-    int getProfileRowsCount();
+    LiveData<Integer> getProfileRowsCount();
     @Query("SELECT * FROM profile_table")
     LiveData<List<ProfileTableDb>> getProfile();
 }
