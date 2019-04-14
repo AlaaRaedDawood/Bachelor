@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ViewLayoutCanvas extends View {
     private Paint paint;
-    ArrayList<IntersectedPoints> intersectPoints = new ArrayList<IntersectedPoints>();
+    ArrayList<PointF> intersectPoints = new ArrayList<PointF>();
     private ArrayList<PointF> startPoints = new ArrayList<PointF>();
     private ArrayList<PointF> stopPoints = new ArrayList<PointF>();
     private ArrayList<PathLine> pathLines = new ArrayList<PathLine>();
@@ -35,13 +35,8 @@ public class ViewLayoutCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (startPoints.size() != 0) {
-//            for (int i = 0; i < intersectPoints.size(); i++) {
-//                Log.i("alaaa", " i1 = " + intersectPoints.get(i).getPoint().getX() + "l2 = " + intersectPoints.get(i).getPoint().getY());
-//                Log.i("alaa", "l1 " + intersectPoints.get(i).getIndexOfLine1() + " l2 = " + intersectPoints.get(i).getIndexOfLine2());
-//            }
-
-            Log.i("alaa", "number of paths are " + pathLines.size());
-            if (pathLines.size() != 0) {
+            Log.i("alaa", "number of paths are " + intersectPoints.size());
+            if (intersectPoints.size() != 0) {
 
                 for (int i = 0; i < intersectPoints.size(); i++) {
 
@@ -50,12 +45,12 @@ public class ViewLayoutCanvas extends View {
 
                     paint.setTextSize(70);
                     paint.setColor(Color.GREEN);
-                    canvas.drawText(index, intersectPoints.get(i).getPoint().getX() + d, intersectPoints.get(i).getPoint().getY(), paint);
+                    canvas.drawText(index, intersectPoints.get(i).getX() + d, intersectPoints.get(i).getY(), paint);
 
 
                     paint.setColor(Color.GRAY);
                     for (int radius = 0; radius < 41; radius++) {
-                        canvas.drawCircle(intersectPoints.get(i).getPoint().getX(), intersectPoints.get(i).getPoint().getY(), radius, paint);
+                        canvas.drawCircle(intersectPoints.get(i).getX(), intersectPoints.get(i).getY(), radius, paint);
                     }
 
                     //Log.i("alaa", "the x = " + resultPoints.get(i).getX() + " y = " + resultPoints.get(i).getY());
@@ -77,7 +72,7 @@ public class ViewLayoutCanvas extends View {
     public void setStopPoints(ArrayList<PointF> stopPoints){
         this.stopPoints = stopPoints ;
     }
-    public void setIntersectPoints (ArrayList<IntersectedPoints> intersectPoints){
+    public void setIntersectPoints (ArrayList<PointF> intersectPoints){
 
         this.intersectPoints = intersectPoints ;
     }

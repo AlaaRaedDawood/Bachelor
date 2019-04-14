@@ -16,12 +16,10 @@ public class FinalLayoutPath extends View {
    private int repeatDrawing = 0 ;
    //add jump height
     int jumpHeight = 100 ;
-    ArrayList<PointF> resultPoints = new ArrayList<PointF>();
-    private ArrayList<PathLine> resultPath = new ArrayList<PathLine>();
+    //ArrayList<PointF> resultPoints = new ArrayList<PointF>();
+    //private ArrayList<PathLine> resultPath = new ArrayList<PathLine>();
     ArrayList<Region> regions = new ArrayList<Region>();
     int createRegion = 0 ;
-    //diagnole that shall be removed
-    private int removeDiagnole = -1 ;
     private ArrayList<PathLine> diagnoleLines = new ArrayList<PathLine>();
     ArrayList<IntersectedPoints> intersectPoints = new ArrayList<IntersectedPoints>();
     private   ArrayList<PointF> startPoints = new ArrayList<PointF>();
@@ -58,11 +56,7 @@ public class FinalLayoutPath extends View {
                     checkDiagnoleWallPath();
                     checkPathWallPath();
                     createPath();
-//                for(int i = 0 ; i < pathLines.size() ; i++) {
-//                    Log.i("alaa", "p1 x= " + pathLines.get(i).getPoint1().getX() +" y = "+ pathLines.get(i).getPoint1().getY());
-//                    Log.i("alaa", "p2 x= " + pathLines.get(i).getPoint2().getX() +" y = "+ pathLines.get(i).getPoint2().getY());
-//                    Log.i("alaa" , "line id = " +pathLines.get(i).getLineid()  );
-//                }
+
                     for (int i = 0; i < diagnoleLines.size(); i++) {
                         Log.i("d", "size of diagnoleeee " + diagnoleLines.get(i).getSize() );
 
@@ -291,72 +285,70 @@ public class FinalLayoutPath extends View {
             }
         }
       }
-    public void createResultPath(){
-
-        while (resultPath.size() < pathLines.size()){
-            PathLine maxiumPath = plines.get(0);
-            int point = 1 ;
-            for(int i = 0 ; i < plines.size();i++){
-                if(resultPath.size() == 0){
-                if(maxiumPath.getSize() < plines.get(i).getSize()){
-                    maxiumPath = plines.get(i);
-
-                }
-                }
-                else{
-                    for(int k = 0 ; k < plines.size() ; k++){
-                        PointF p1 = plines.get(k).getPoint1();
-                        PointF p2 = plines.get(k).getPoint2();
-                        if((resultPoints.get(resultPoints.size()-1).equals(p1)) && (!p2.getChecked())){
-                            maxiumPath = plines.get(k);
-                            point = 1 ;
-                            break;
-                        }
-                        else if ((resultPoints.get(resultPoints.size()-1).equals(p2)) && (!p1.getChecked()) ){
-                            maxiumPath = plines.get(k);
-                            point = 2 ;
-                            break;
-                        }
-                    }
-                    if(maxiumPath.getSize() < plines.get(i).getSize()){
-                        PointF p1 = plines.get(i).getPoint1();
-                        PointF p2 = plines.get(i).getPoint2();
-                        if((resultPoints.get(resultPoints.size()-1).equals(p1))&& (!p2.getChecked())){
-                        maxiumPath = plines.get(i);
-                        point = 1 ;
-                    }
-                        else if ((resultPoints.get(resultPoints.size()-1).equals(p2))&& (!p1.getChecked())){
-                            maxiumPath = plines.get(i);
-                            point = 2 ;
-                        }
-                        }
-                }
-            }
-            plines.remove(maxiumPath);
-            Log.i("alaa" , "size of pline now" + plines.size());
-            if(resultPath.size() == 0){
-                maxiumPath.getPoint1().setChecked(true);
-                maxiumPath.getPoint2().setChecked(true);
-                resultPoints.add(maxiumPath.getPoint1());
-                resultPoints.add(maxiumPath.getPoint2());
-
-            }else {
-                if(point == 1 ) {
-                    maxiumPath.getPoint2().setChecked(true);
-                    resultPoints.add(maxiumPath.getPoint2());
-                }
-                if(point == 2) {
-                    maxiumPath.getPoint1().setChecked(true);
-                    resultPoints.add(maxiumPath.getPoint1());
-                }
-            }
-            Log.i("alaa" , "point1 = " + maxiumPath.getPoint1().getX()  +" p2 = " + maxiumPath.getPoint2().getX() + " size = " +maxiumPath.getSize());
-            resultPath.add(maxiumPath);
-        }
-
-
-
-    }
+//    public void createResultPath(){
+//
+//        while (resultPath.size() < pathLines.size()){
+//            PathLine maxiumPath = plines.get(0);
+//            int point = 1 ;
+//            for(int i = 0 ; i < plines.size();i++){
+//                if(resultPath.size() == 0){
+//                if(maxiumPath.getSize() < plines.get(i).getSize()){
+//                    maxiumPath = plines.get(i);
+//
+//                }
+//                }
+//                else{
+//                    for(int k = 0 ; k < plines.size() ; k++){
+//                        PointF p1 = plines.get(k).getPoint1();
+//                        PointF p2 = plines.get(k).getPoint2();
+//                        if((resultPoints.get(resultPoints.size()-1).equals(p1)) && (!p2.getChecked())){
+//                            maxiumPath = plines.get(k);
+//                            point = 1 ;
+//                            break;
+//                        }
+//                        else if ((resultPoints.get(resultPoints.size()-1).equals(p2)) && (!p1.getChecked()) ){
+//                            maxiumPath = plines.get(k);
+//                            point = 2 ;
+//                            break;
+//                        }
+//                    }
+//                    if(maxiumPath.getSize() < plines.get(i).getSize()){
+//                        PointF p1 = plines.get(i).getPoint1();
+//                        PointF p2 = plines.get(i).getPoint2();
+//                        if((resultPoints.get(resultPoints.size()-1).equals(p1))&& (!p2.getChecked())){
+//                        maxiumPath = plines.get(i);
+//                        point = 1 ;
+//                    }
+//                        else if ((resultPoints.get(resultPoints.size()-1).equals(p2))&& (!p1.getChecked())){
+//                            maxiumPath = plines.get(i);
+//                            point = 2 ;
+//                        }
+//                        }
+//                }
+//            }
+//            plines.remove(maxiumPath);
+//            Log.i("alaa" , "size of pline now" + plines.size());
+//            if(resultPath.size() == 0){
+//                maxiumPath.getPoint1().setChecked(true);
+//                maxiumPath.getPoint2().setChecked(true);
+//                resultPoints.add(maxiumPath.getPoint1());
+//                resultPoints.add(maxiumPath.getPoint2());
+//
+//            }else {
+//                if(point == 1 ) {
+//                    maxiumPath.getPoint2().setChecked(true);
+//                    resultPoints.add(maxiumPath.getPoint2());
+//                }
+//                if(point == 2) {
+//                    maxiumPath.getPoint1().setChecked(true);
+//                    resultPoints.add(maxiumPath.getPoint1());
+//                }
+//            }
+//            Log.i("alaa" , "point1 = " + maxiumPath.getPoint1().getX()  +" p2 = " + maxiumPath.getPoint2().getX() + " size = " +maxiumPath.getSize());
+//            resultPath.add(maxiumPath);
+//        }
+//
+//}
     //check if there exist a diagnole with same points but bigger size
 public boolean checkinDiagnole(ArrayList<PathLine> p , PathLine d){
         for(int i = 0 ; i < p.size() ; i++){
@@ -391,12 +383,25 @@ public boolean checkinDiagnole(ArrayList<PathLine> p , PathLine d){
         return pathLines.size();
     }
     //returns array with the resultPoints that used in drawing the canvas
-    public ArrayList<PointF> getResultPoint(){
-        ArrayList<PointF> result = new ArrayList<PointF>();
-        for(int i = 0 ; i < pathLines.size() ; i++){
-           result.add( resultPoints.get(i));
+//    public ArrayList<PointF> getResultPoint(){
+//        ArrayList<PointF> result = new ArrayList<PointF>();
+//        for(int i = 0 ; i < pathLines.size() ; i++){
+//           result.add( resultPoints.get(i));
+//        }
+//        return result;
+
+    public ArrayList<IntersectedPoints> getIntersectPoints() {
+        return intersectPoints;
+    }
+   public ArrayList<PointF> getIntersectPointF(){
+        ArrayList<PointF> intersectPointF = new ArrayList<PointF>();
+        for(int i=0 ; i < intersectPoints.size() ; i++){
+           intersectPointF.add(intersectPoints.get(i).getPoint() ) ;
         }
-        return result;
+        return  intersectPointF ;
+   }
+    public ArrayList<PathLine> getPlines() {
+        return plines;
     }
     public ArrayList<PointF> getStartPointsPoint(){
         return startPoints;

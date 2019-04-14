@@ -45,17 +45,27 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
     class LayoutHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private Button button_delete ;
-
+        private Button button_view ;
         public LayoutHolder(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             button_delete = itemView.findViewById(R.id.deleteButton);
+            button_view = itemView.findViewById(R.id.viewButton);
             button_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(layouts.get(position));
+                        listener.onDeleteLayout(layouts.get(position) ,v);
+                    }
+                }
+            });
+            button_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onViewLayout(layouts.get(position) , v);
                     }
                 }
             });
@@ -64,6 +74,8 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
     }
     public interface OnItemClickListener {
         void onItemClick(layoutTableDB layout);
+        void onDeleteLayout(layoutTableDB layout , View v);
+        void onViewLayout (layoutTableDB layout , View v);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

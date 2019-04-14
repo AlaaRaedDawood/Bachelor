@@ -1,6 +1,6 @@
 package com.example.start;
 
-public class PathLine {
+public class PathLine  implements java.io.Serializable{
     private PointF point1 ;
     private int point1ID ;
     private PointF point2 ;

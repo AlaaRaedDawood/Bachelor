@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <com.example.start.ViewLayoutCanvas
-        android:id="@+id/draw_canvas"
+        android:id="@+id/view_canvas"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginStart="15dp"

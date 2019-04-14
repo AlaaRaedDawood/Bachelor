@@ -13,6 +13,12 @@ public class ViewLayoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_layout);
+        final ViewLayoutCanvas canvas  = (ViewLayoutCanvas) findViewById(R.id.view_canvas);
+        layoutTableDB choosenLayout = (layoutTableDB)getIntent().getSerializableExtra("layoutTableDb");
+        canvas.setIntersectPoints(choosenLayout.getIntersectPoints());
+        canvas.setStartPoints(choosenLayout.getStartPoints());
+        canvas.setStopPoints(choosenLayout.getStopPoints());
+
 
     }
 

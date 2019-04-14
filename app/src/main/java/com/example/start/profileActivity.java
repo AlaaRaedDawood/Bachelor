@@ -172,6 +172,8 @@ private HiitViewModel hiitViewModel ;
                      profileId = profiles.get(0).getId();
                      userName_et.setText(profiles.get(0).getUser_name());
                      birthdate_et.setText(profiles.get(0).getBirthdate());
+                     height_et.setText(Integer.toString(profiles.get(0).getUser_height()));
+                     weight_et.setText(Integer.toString(profiles.get(0).getUser_weight()));
                      if(profiles.get(0).getUser_gender().equals("female")){
                          female_rb.setChecked(true);
                          male_rb.setChecked(false);
@@ -179,6 +181,22 @@ private HiitViewModel hiitViewModel ;
                          female_rb.setChecked(false);
                          male_rb.setChecked(true);
                      }
+                     if(profiles.get(0).getUser_backproblems().equals("upper")){
+                         upper_rb.setChecked(true);
+                         lower_rb.setChecked(false);
+                         none_rb.setChecked(false);
+                     }
+                     if(profiles.get(0).getUser_backproblems().equals("lower")){
+                         upper_rb.setChecked(false);
+                         lower_rb.setChecked(true);
+                         none_rb.setChecked(false);
+                     }
+                     if(profiles.get(0).getUser_backproblems().equals("none")){
+                         upper_rb.setChecked(false);
+                         lower_rb.setChecked(false);
+                         none_rb.setChecked(true);
+                     }
+
                  }
 
 

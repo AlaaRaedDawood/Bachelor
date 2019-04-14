@@ -11,17 +11,22 @@ import java.util.ArrayList;
 //create entity class
 @Entity(tableName = "layout_table")
 
-public class layoutTableDB {
+public class layoutTableDB  implements java.io.Serializable{
     @PrimaryKey(autoGenerate = true)
     private int id ;
     private  String layout_name ;
 
     public ArrayList<PointF> startPoints = new ArrayList<PointF>();
     private ArrayList<PointF> stopPoints = new ArrayList<PointF>();
-   private ArrayList<PointF> resultPoints = new ArrayList<PointF>();
+   private ArrayList<PointF> intersectPoints = new ArrayList<PointF>();
+   private ArrayList<PathLine> pathLines = new ArrayList<PathLine>();
    private int used ;
-   public layoutTableDB(String layout_name , ArrayList<PointF>  resultPoints , ArrayList<PointF>  startPoints, ArrayList<PointF>  stopPoints){
-       this.resultPoints = resultPoints ;
+
+
+
+    public layoutTableDB(String layout_name , ArrayList<PathLine> pathLines , ArrayList<PointF>  intersectPoints , ArrayList<PointF>  startPoints, ArrayList<PointF>  stopPoints){
+       this.intersectPoints = intersectPoints ;
+       this.pathLines = pathLines ;
        this.layout_name = layout_name;
        this.startPoints=startPoints;
        this.stopPoints=stopPoints;
@@ -36,9 +41,12 @@ public class layoutTableDB {
         return id;
     }
 
-    public ArrayList<PointF> getResultPoints(){
+    public ArrayList<PointF> getIntersectPoints(){
 
-       return resultPoints ;
+       return intersectPoints ;
+    }
+    public ArrayList<PathLine> getPathLines() {
+        return pathLines;
     }
     public ArrayList<PointF> getStartPoints(){
         return startPoints ;

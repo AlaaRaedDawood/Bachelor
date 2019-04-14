@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 
-@Database(entities = {layoutTableDB.class , ProfileTableDb.class} ,version = 2)
+@Database(entities = {layoutTableDB.class , ProfileTableDb.class} ,version = 3)
 @TypeConverters(listConverter.class)
 public abstract class HiitDB extends RoomDatabase {
     //this variable is created to turn the class singelton

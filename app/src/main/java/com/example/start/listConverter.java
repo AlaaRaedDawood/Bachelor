@@ -27,9 +27,26 @@ public class listConverter {
 
 
     }
+    @TypeConverter
+    public static ArrayList<PathLine> stringToPathLineList(String data) {
+        Type listType = new TypeToken<ArrayList<PathLine>>() {}.getType();
+        Log.i("alaa" , "  tttt "+data);
+        return new Gson().fromJson(data, listType);
 
+
+
+    }
     @TypeConverter
     public static String PointFListToString(ArrayList<PointF>  someObjects) {
+        Gson gson = new Gson();
+        String json = gson.toJson(someObjects);
+        if(json == null ){
+            Log.i("alaadbb" , "atfsh5naa");
+        }
+        return json;
+    }
+    @TypeConverter
+    public static String PathLineListToString(ArrayList<PathLine>  someObjects) {
         Gson gson = new Gson();
         String json = gson.toJson(someObjects);
         if(json == null ){

@@ -53,33 +53,31 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 choosenLayout = layout ;
              //   hiitViewModel.delete(layout);
             }
+
+            @Override
+            public void onDeleteLayout(layoutTableDB layout , View v) {
+                v.startAnimation(anime_alpha);
+                hiitViewModel.delete(layout);
+            }
+
+            @Override
+            public void onViewLayout(layoutTableDB layout, View v) {
+                v.startAnimation(anime_alpha);
+                Intent intent = new Intent(ChooseLayoutActivity.this , ViewLayoutActivity.class);
+                intent.putExtra("layoutTableDb" ,layout);
+                startActivity(intent);
+
+            }
+
         });
-        Button delete_btn = (Button) findViewById(R.id.deleteButton);
-        Button view_btn = (Button) findViewById(R.id.viewButton);
 
-        if(layoutSize > 0) {
-            delete_btn.setOnClickListener(new View.OnClickListener() {
+        hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer profilesize) {
+                profileSize = profilesize ;
+                Log.i("DB" , "the profile size is " + profilesize);
 
-                public void onClick(View v) {
-                    v.startAnimation(anime_alpha);
-                    hiitViewModel.delete(choosenLayout);
-                }
-            });
-            view_btn.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    v.startAnimation(anime_alpha);
-
-                }
-            });
-        }
-//        hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
-//            @Override
-//            public void onChanged(@Nullable Integer profilesize) {
-//                profileSize = profilesize ;
-//                Log.i("DB" , "the profile size is " + profilesize);
-//
-//            }});
+            }});
 
         Button add_btn = (Button) findViewById(R.id.addLayoutButton);
         add_btn.setOnClickListener(new View.OnClickListener() {

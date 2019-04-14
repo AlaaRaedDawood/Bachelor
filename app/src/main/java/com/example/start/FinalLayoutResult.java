@@ -115,7 +115,7 @@ public class FinalLayoutResult extends AppCompatActivity {
                                     if (!flag) {
 
                                         String layout_title = text.getText().toString();
-                                        layoutTableDB layout = new layoutTableDB(layout_title, canvas.getResultPoint(),
+                                        layoutTableDB layout = new layoutTableDB(layout_title,canvas.getPlines() ,canvas.getIntersectPointF(),
                                                 canvas.getStartPointsPoint(), canvas.getStopPointsPoint());
 
                                         if (layout != null) {
