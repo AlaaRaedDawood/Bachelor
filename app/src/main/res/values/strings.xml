@@ -15,7 +15,7 @@
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
-<string name="View_layout">View The Layout</string>
+    <string name="View_layout">View The Layout</string>
     <string name="female">Female</string>
     <string name="title_activity_profile">profileActivity</string>
     <string name="title_activity_print_markers">PrintMarkers</string>
@@ -27,5 +27,7 @@
     <string name="none">none</string>
     <string name="lowerback">lower backproblems</string>
     <string name="weight">Weight</string>
+    <string name="title_activity_performance_graph">performanceGraphActivity</string>
+    <string name="chartGraph">The values of your performances</string>
 
 </resources>

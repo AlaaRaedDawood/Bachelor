@@ -36,7 +36,7 @@ DB_Helper db ;
 
             public void onClick(View v) {
                 v.startAnimation(anime_translate);
-                Intent i = new Intent(MainActivity.this , DrawLayoutActivity.class);
+                Intent i = new Intent(MainActivity.this , performanceGraphActivity.class);
                 startActivity(i);
 
             }
