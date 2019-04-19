@@ -23,11 +23,14 @@
     <string name="title_activity_view_layout">ViewLayoutActivity</string>
     <string name="height">Height</string>
     <string name="backproblems">Backproblems</string>
-    <string name="upperback">upper back</string>
+    <string name="upperback">upper</string>
     <string name="none">none</string>
-    <string name="lowerback">lower backproblems</string>
+    <string name="lowerback">lower</string>
     <string name="weight">Weight</string>
     <string name="title_activity_performance_graph">performanceGraphActivity</string>
     <string name="chartGraph">The values of your performances</string>
+    <string name="play">Play</string>
+    <string name="performance">View Performance</string>
+    <string name="trial">Trial</string>
 
 </resources>

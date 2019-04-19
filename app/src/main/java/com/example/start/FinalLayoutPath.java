@@ -55,7 +55,7 @@ public class FinalLayoutPath extends View {
                     checkDiagnolePath();
                     checkDiagnoleWallPath();
                     checkPathWallPath();
-                    createPath();
+                   /// createPath();
 
                     for (int i = 0; i < diagnoleLines.size(); i++) {
                         Log.i("d", "size of diagnoleeee " + diagnoleLines.get(i).getSize() );

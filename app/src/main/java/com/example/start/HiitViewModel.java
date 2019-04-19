@@ -9,17 +9,21 @@ import java.util.List;
 
 public class HiitViewModel extends AndroidViewModel {
     private  layoutRepository layoutrepository;
-    //private  profileRepository profilerepository;
+    private  performanceRepository performancerepository;
     private LiveData<List<layoutTableDB>> allLayouts;
     private LiveData<List<ProfileTableDb>> allProfiles;
     private LiveData<Integer>   profileTableSize ;
+    private LiveData<List<PerformanceTableDB>> allPerformance;
+    private LiveData<Integer>   performanceTablesize ;
     public HiitViewModel(@NonNull Application application) {
         super(application);
         layoutrepository = new layoutRepository(application);
-        //profilerepository = new profileRepository(application);
+        performancerepository = new performanceRepository(application);
         allLayouts = layoutrepository.getAllLayouts();
         allProfiles =  layoutrepository.getAllProfiles();
         profileTableSize = layoutrepository.getProfileRowsCount();
+        allPerformance = performancerepository.getAllPerformnce();
+        performanceTablesize = performancerepository.getPerformanceCount();
     }
 
     public void insert(layoutTableDB layout) {
@@ -58,5 +62,24 @@ public class HiitViewModel extends AndroidViewModel {
     }
     public LiveData<Integer>   getProfileSize() {
         return profileTableSize ;
+    }
+    //performance
+    public void insertPerformance(PerformanceTableDB performance) {
+        performancerepository.insertPerformance(performance);
+    }
+
+    public void updatePerformance(PerformanceTableDB performance) {
+        performancerepository.updatePerformance(performance);
+    }
+
+    public void deletePerformance(PerformanceTableDB performance) {
+        performancerepository.deletePerformance(performance);
+    }
+
+    public LiveData<List<PerformanceTableDB>> getAllPerformance() {
+        return allPerformance ;
+    }
+    public LiveData<Integer>   getPerformanceSize() {
+        return performanceTablesize ;
     }
 }

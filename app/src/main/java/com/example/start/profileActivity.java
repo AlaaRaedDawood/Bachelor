@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -32,6 +34,8 @@ private HiitViewModel hiitViewModel ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile);
 
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
@@ -54,7 +58,7 @@ private HiitViewModel hiitViewModel ;
                 calender.set(Calendar.YEAR, year);
                 calender.set(Calendar.MONTH, monthOfYear);
                 calender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "MM/dd/yy"; //In which you need put here
+                String myFormat = "MM/dd/yyyy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
                 birthdate_editText.setText(sdf.format(calender.getTime()));

@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 
-@Database(entities = {layoutTableDB.class , ProfileTableDb.class} ,version = 3)
+@Database(entities = {layoutTableDB.class , ProfileTableDb.class , PerformanceTableDB.class} ,version = 4)
 @TypeConverters(listConverter.class)
 public abstract class HiitDB extends RoomDatabase {
     //this variable is created to turn the class singelton
@@ -19,6 +19,8 @@ public abstract class HiitDB extends RoomDatabase {
     public abstract layoutDAO layoutdao();
     //this let us access our profile dao
     public abstract profileDAO profiledao();
+    //this let us access our performance dao
+    public abstract PerformanceDAO performancedao();
     //create a database
     public static synchronized HiitDB getInstance(Context context){
         if (instance == null) {
@@ -40,9 +42,11 @@ public abstract class HiitDB extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private layoutDAO layoutdao;
         private profileDAO profiledao ;
+        private PerformanceDAO performancedao ;
         private PopulateDbAsyncTask(HiitDB db) {
             layoutdao = db.layoutdao();
             profiledao = db.profiledao();
+            performancedao = db.performancedao() ;
         }
 
         @Override

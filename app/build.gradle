@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.start"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -43,5 +43,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //graph dependencies
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    //add unity project
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":ARHIIT-release")
+    implementation(name: 'heartratee-release', ext:'aar')
+    implementation(name: 'VuforiaWrapper', ext:'aar')
 
 }
