@@ -13,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -28,6 +30,8 @@ public class ChooseLayoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_choose_layout);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,8 +49,10 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                     Toast toast=Toast.makeText(getApplicationContext(),"layout size is  " + layoutSize,Toast.LENGTH_SHORT);
                     // toast.setMargin(50,50);
                     toast.show();
+                //adapter.setLayouts(layouts);
+            }
                 adapter.setLayouts(layouts);
-            }}
+            }
         });
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
 
@@ -54,7 +60,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
             @Override
             public void onItemClick(layoutTableDB layout) {
                 choosenLayout = layout ;
-             //   hiitViewModel.delete(layout);
+              //  hiitViewModel.delete(layout);
             }
 
             @Override
