@@ -57,6 +57,7 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.onDeleteLayout(layouts.get(position) ,v);
+                        //notifyDataSetChanged();
                     }
                 }
             });
@@ -66,6 +67,7 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.onViewLayout(layouts.get(position) , v);
+
                     }
                 }
             });

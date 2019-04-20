@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
                                 float[] size = new float[layoutpaths.size()];
                                 Log.i("aaaaaaaaaaaaaaaaaaaaaa", "layout size is " + layoutpaths.size());
                                 for (int i = 0; i < layoutpaths.size(); i++) {
-                                    Log.i("aaaaaaaaaaaaaaaaaaaaaa", "layout size is " + layoutpaths.get(i).getPoint1ID());
+                                    Log.i("PATHLINE", "layout point1ID is " + layoutpaths.get(i).getPoint1ID() + " point2ID "
+                                    + layoutpaths.get(i).getPoint2ID() +" size is " + layoutpaths.get(i).getSize());
                                     point1ID[i] = layoutpaths.get(i).getPoint1ID();
                                     point2ID[i] = layoutpaths.get(i).getPoint2ID();
                                     size[i] = layoutpaths.get(i).getSize();
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("size", size);
                                 intent.putExtra("flag", 0);
                                 //startActivityForResult(intent, 1);
-                               startActivity(intent);
+                                startActivity(intent);
                             }
 
                         }

@@ -36,12 +36,15 @@ public class ChooseLayoutActivity extends AppCompatActivity {
         final LayoutAdapter adapter = new LayoutAdapter();
         recyclerView.setAdapter(adapter);
 
-        hiitViewModel = ViewModelProviders.of(this).get(HiitViewModel.class);
-        hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
+        hiitViewModel = ViewModelProviders.of(ChooseLayoutActivity.this).get(HiitViewModel.class);
+        hiitViewModel.getAllLayouts().observe(ChooseLayoutActivity.this, new Observer<List<layoutTableDB>>() {
             @Override
             public void onChanged(@Nullable List<layoutTableDB> layouts) {
                 layoutSize = layouts.size();
                 if(layoutSize > 0){
+                    Toast toast=Toast.makeText(getApplicationContext(),"layout size is  " + layoutSize,Toast.LENGTH_SHORT);
+                    // toast.setMargin(50,50);
+                    toast.show();
                 adapter.setLayouts(layouts);
             }}
         });
@@ -58,6 +61,10 @@ public class ChooseLayoutActivity extends AppCompatActivity {
             public void onDeleteLayout(layoutTableDB layout , View v) {
                 v.startAnimation(anime_alpha);
                 hiitViewModel.delete(layout);
+                if(layout != null) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "layout is deleted  ", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
 
             @Override
@@ -97,6 +104,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
 
 
     }
+
     }
 
 

@@ -134,6 +134,9 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
                 intersect.remove((intersect.size() - 1));
                 Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());
                 intersectPoints.remove((intersectPoints.size() - 1));
+                if(intersectPointID != 0 ) {
+                    intersectPointID -= 1;
+                }
             }
         }
 //        Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());
@@ -149,6 +152,7 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
             stopPoints.clear();
             intersect.clear();
             intersectPoints.clear();
+            intersectPointID = 0 ;
             invalidate();
 
     }
