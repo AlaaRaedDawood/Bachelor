@@ -8,26 +8,32 @@
     tools:context=".performanceGraphActivity"
     tools:showIn="@layout/activity_performance_graph">
 
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableBottom="@drawable/ic_arrow_back_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="98dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="70dp"
         android:text="@string/chartGraph"
         android:textColor="#fff"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/chart"
+        android:textSize="27dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="0dp"
-        android:layout_height="443dp"
-        android:layout_marginTop="224dp"
-        android:layout_marginBottom="64dp"
-        android:background="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="404dp"
+        android:layout_marginTop="205dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

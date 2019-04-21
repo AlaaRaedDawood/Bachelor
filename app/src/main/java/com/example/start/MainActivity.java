@@ -1,5 +1,6 @@
 package com.example.start;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -37,15 +38,18 @@ import static android.arch.lifecycle.ViewModelProviders.of;
 public class MainActivity extends AppCompatActivity {
     private HiitViewModel hiitViewModel ;
     private int performanceCount ;
+    private ArrayList<String> date = new ArrayList<>() ;
+    private ArrayList<Integer> heartRate = new ArrayList<>() ;
     private ArrayList<PathLine> layoutpaths = new ArrayList<>() ;
     private int maxheartrate ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hiitViewModel = of(this).get(HiitViewModel.class);
+         hiitViewModel = of(this).get(HiitViewModel.class);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
         CoordinatorLayout constraintLayout = (CoordinatorLayout)findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
@@ -55,11 +59,14 @@ public class MainActivity extends AppCompatActivity {
         final Animation anime_translate = AnimationUtils.loadAnimation(this ,R.anim.anime_translate);
 
         Button buttonPerformance = (Button)(findViewById(R.id.button_performance));
+        checkPerformance();
         buttonPerformance.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 v.startAnimation(anime_translate);
                 Intent i = new Intent(MainActivity.this , performanceGraphActivity.class);
+                i.putExtra("d" , date);
+                i.putExtra("hr" , heartRate);
                 startActivity(i);
 
             }
@@ -118,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("point2ID", point2ID);
                                 intent.putExtra("size", size);
                                 intent.putExtra("flag", 0);
-                                //startActivityForResult(intent, 1);
-                                startActivity(intent);
+                                startActivityForResult(intent, 1);
+                                //startActivity(intent);
                             }
 
                         }
@@ -197,6 +204,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void checkPerformance() {
+        hiitViewModel.getAllPerformance().observe(MainActivity.this, new Observer<List<PerformanceTableDB>>() {
+            @Override
+            public void onChanged(@Nullable List<PerformanceTableDB> performances) {
+
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        " performances size  " + performances.size(), Toast.LENGTH_SHORT);
+                Log.i("performance " , " pppppppppppppp = " +performances.size());
+                for (int i = 0; i < performances.size(); i++) {
+                    date.add(performances.get(i).getDate());
+                    heartRate.add(performances.get(i).getUser_heartRate());
+                    Log.i("performance " , " date is = " +performances.get(i).getDate());
+                    Log.i("performance " , " heartrate is = " +performances.get(i).getUser_heartRate());
+                    // Toast toast =
+                }}
+
+        });
+    }
+
     public void checkPerformanceCount(){
         hiitViewModel.getPerformanceSize().observe(this , new Observer<Integer>() {
             @Override
@@ -212,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<ProfileTableDb> profiles) {
 
                 if (profiles.size() == 0) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "save your profile to be able to play", Toast.LENGTH_SHORT);
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "save your profile to be able to play ", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
                     int age = -1;
@@ -259,6 +287,39 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Intent i = getIntent() ;
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("pos");
+                //Log.i("alaa" , result);
+                float targetsTime =data.getFloatExtra("targetsTime" , -1);
+                float heartRate =data.getFloatExtra("maxHeartRate" , -1);
+                if((targetsTime != -1) && (heartRate != -1) ){
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String currentDateandTime = sdf.format(new Date());
+                    Log.i("Android to Unity" , "targets time = " + targetsTime);
+                    Log.i("Android to Unity" , "heartRate = " + heartRate);
+                    PerformanceTableDB performance = new PerformanceTableDB(currentDateandTime , targetsTime ,(int)heartRate);
+                    hiitViewModel.insertPerformance(performance);
+                    Toast toast = Toast.makeText(getApplicationContext(), "targetsTime " + targetsTime +
+                            " heartRate = " + heartRate , Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "error with failure " + heartRate, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast toast = Toast.makeText(getApplicationContext(), "NULL ", Toast.LENGTH_SHORT);
+                toast.show();
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.

@@ -8,23 +8,21 @@ public class PerformanceTableDB {
     @PrimaryKey(autoGenerate = true)
     private int id ;
     private  String date ;
-    private int time ;
+    private float time ;
     private int user_heartRate ;
     //to be able to know if it is a trial or playinggame
-    private int flag ;
-    public PerformanceTableDB(String date,int time , int user_heartRate, int flag){
+   // private int flag ;
+    public PerformanceTableDB(String date,float time , int user_heartRate){
         this.date=date;
         this.time = time ;
         this.user_heartRate = user_heartRate;
-        this.user_heartRate = user_heartRate ;
+       // this.user_heartRate = user_heartRate ;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-    public int getFlag() {
-        return flag;
-    }
+
 
     public int getId() {
         return id;
@@ -34,7 +32,7 @@ public class PerformanceTableDB {
         return date;
     }
 
-    public int getTime() {
+    public float getTime() {
         return time;
     }
 
