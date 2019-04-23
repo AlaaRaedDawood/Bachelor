@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> heartRate = new ArrayList<>() ;
     private ArrayList<PathLine> layoutpaths = new ArrayList<>() ;
     private int maxheartrate ;
+    private  float targetTimeLimit = -1 ;
+    private  String lastGamePlayedDate = "" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +147,12 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 final View view = v;
-
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String currentDateandTime = sdf.format(new Date());
+                if(currentDateandTime.equals(lastGamePlayedDate)){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Only one game is allowed a day ", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else {
                 hiitViewModel.getAllLayouts().observe(MainActivity.this, new Observer<List<layoutTableDB>>() {
                     @Override
                     public void onChanged(@Nullable List<layoutTableDB> layouts) {
@@ -184,13 +191,21 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("point2ID", point2ID);
                                 intent.putExtra("size", size);
                                 intent.putExtra("flag", 1);
-                                startActivityForResult(intent, 1);
+                                if(targetTimeLimit != -1) {
+                                    int t = (int) targetTimeLimit ;
+                                    intent.putExtra("targetTimerLimit", t);
+                                    startActivityForResult(intent, 1);
+                                }
+                                else {
+                                    Log.i("alaa" , "lkd fshlna");
+                                }
                                 //startActivity(intent);
                             }
 
                         }
-                    }});
+                    }});}
             }});
+                                      //}
 //        buttonPlay.setOnClickListener(new View.OnClickListener() {
 //
 //            public void onClick(View v) {
@@ -264,12 +279,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPerformance() {
+        date.clear();
+        heartRate.clear();
         hiitViewModel.getAllPerformance().observe(MainActivity.this, new Observer<List<PerformanceTableDB>>() {
             @Override
             public void onChanged(@Nullable List<PerformanceTableDB> performances) {
+                if(performances.size()>1) {
+                    lastGamePlayedDate = performances.get(performances.size() - 1).getDate();
+                }
+                if(performances.size() > 0 ){
+                    targetTimeLimit  = performances.get(performances.size() - 1).getTime();
+                }
 
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        " performances size  " + performances.size(), Toast.LENGTH_SHORT);
+
                 Log.i("performance " , " pppppppppppppp = " +performances.size());
                 for (int i = 0; i < performances.size(); i++) {
                     date.add(performances.get(i).getDate());

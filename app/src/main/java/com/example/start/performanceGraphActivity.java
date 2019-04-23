@@ -79,7 +79,8 @@ public class performanceGraphActivity extends AppCompatActivity {
 //        Toast toast = Toast.makeText(getApplicationContext(),
 //                " data size  " + date.size(), Toast.LENGTH_SHORT);
 //        toast.show();
-        checkPerformance();
+        //checkPerformance();
+        BARENTRY.clear();
         Log.i("performance " , " hhhhhhhhhhhhhhhhhhh = " +heartRate.size());
                 for (int i = 0; i < date.size(); i++) {
 //                    toast = Toast.makeText(getApplicationContext(), "hr =  " + heartRate.get(i)
@@ -102,6 +103,7 @@ public class performanceGraphActivity extends AppCompatActivity {
     }
 
     public void AddValuesToBarEntryLabels(){
+        BarEntryLabels.clear();
         for (int i = 0; i < date.size(); i++) {
 //                    toast = Toast.makeText(getApplicationContext(), "hr =  " + heartRate.get(i)
 //                            + " date  " + date.get(i), Toast.LENGTH_SHORT);
@@ -118,7 +120,5 @@ public class performanceGraphActivity extends AppCompatActivity {
 //        BarEntryLabels.add("June");
 //        BarEntryLabels.add("July");
     }
-    public void checkPerformance(){
 
-    }
 }
