@@ -7,6 +7,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -25,6 +27,8 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_draw_layout);
         CoordinatorLayout constraintLayout = (CoordinatorLayout)findViewById(R.id.drawlayout_Layout);
 
@@ -69,8 +73,14 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                     Toast toast=Toast.makeText(getApplicationContext(),"the layout must be closed path",Toast.LENGTH_SHORT);
                     //toast.setMargin(50,50);
                     toast.show();
-                }else{
-                if(startPoints.size() !=  0) {
+                }
+//                if(intersectedPoints.size() == 0){
+//                    Toast toast=Toast.makeText(getApplicationContext(),"the layout must contain intersection points",Toast.LENGTH_SHORT);
+//                    //toast.setMargin(50,50);
+//                    toast.show();
+//                }
+                else{
+                if(intersectedPoints.size() !=  0) {
 
                     v.startAnimation(anime_translate);
                     Intent intent = new Intent(DrawLayoutActivity.this, LayOutForMeasuresActivity.class);

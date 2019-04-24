@@ -107,6 +107,17 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 }
 
             }});
+        Button button_back = (Button) findViewById(R.id.addLayoutButton);
+        button_back.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                    v.startAnimation(anime_alpha);
+                    Intent intent = new Intent(ChooseLayoutActivity.this , MainActivity.class);
+                    startActivity(intent);
+
+
+            }});
 
 
     }

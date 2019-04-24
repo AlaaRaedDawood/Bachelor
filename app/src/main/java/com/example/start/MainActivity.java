@@ -279,11 +279,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPerformance() {
-        date.clear();
-        heartRate.clear();
+
         hiitViewModel.getAllPerformance().observe(MainActivity.this, new Observer<List<PerformanceTableDB>>() {
             @Override
             public void onChanged(@Nullable List<PerformanceTableDB> performances) {
+                date.clear();
+                heartRate.clear();
                 if(performances.size()>1) {
                     lastGamePlayedDate = performances.get(performances.size() - 1).getDate();
                 }

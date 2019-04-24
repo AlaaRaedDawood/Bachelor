@@ -2,6 +2,7 @@ package com.example.start;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Region;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -34,7 +37,8 @@ public class FinalLayoutResult extends AppCompatActivity {
         final ArrayList<PointF> stopPoints = (ArrayList<PointF>)getIntent().getSerializableExtra("stopPoints");
         final ArrayList<IntersectedPoints> intersectedPoints = (ArrayList<IntersectedPoints>)getIntent().getSerializableExtra("intersectedPoints");
         float[] size = getIntent().getFloatArrayExtra("lineSizes");
-
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_final_layout_result);
         final FinalLayoutPath canvas  = (FinalLayoutPath) findViewById(R.id.result_canvas);
         final targetPosition targetWall  = (targetPosition) findViewById(R.id.targetPosition);
@@ -123,6 +127,7 @@ public class FinalLayoutResult extends AppCompatActivity {
                                             hiitViewModel.insert(layout);
 
                                             Log.i("alaa", "layout saved");
+                                            returntomainactivity();
                                         }
 
                                         alert.dismiss();
@@ -149,5 +154,9 @@ public class FinalLayoutResult extends AppCompatActivity {
             }
         });
 //
+    }
+    public void returntomainactivity(){
+        Intent intent = new Intent(FinalLayoutResult.this, ChooseLayoutActivity.class);
+        startActivity(intent);
     }
 }

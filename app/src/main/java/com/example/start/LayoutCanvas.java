@@ -16,8 +16,8 @@ import java.util.Stack;
 public class LayoutCanvas extends View {
     private Paint paint ;
     private int intersectPointID = 0;
-//   private ArrayList<ArrayList<Integer> > aList =
-//            new ArrayList<ArrayList<Integer> >();
+    private  float startX , startY , endX , endY ;
+    private boolean drawPoints = true;
 //Stack contains array  the id of the lines that each intersection happened with
 private Stack<int[]> donewithSTACK = new Stack<int[]>();
     //array that conntains the intersected point value and the index of lines that are connected with this point
@@ -43,51 +43,78 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//
-//        for(int i = 0 ; i < xstart.size();i++){
-//            canvas.drawLine(xstart.get(i) , ystart.get(i) , xstop.get(i) , ystop.get(i) , paint);
-//        }
-//
-//        Log.i("alaa" , "done for draw ");
-        for(int i = 0 ; i < startPoints.size();i++){
+        paint.setColor(Color.BLUE);
+        if(drawPoints){
+            canvas.drawLine(startX , startY , endX, endY , paint);
+        }
+        for(int i = 0 ; i < stopPoints.size();i++){
             canvas.drawLine(startPoints.get(i).getX() , startPoints.get(i).getY() , stopPoints.get(i).getX(), stopPoints.get(i).getY() , paint);
         }
-
+        for(int i = 0 ; i < intersectPoints.size() ; i++){
+            paint.setColor(Color.RED);
+            canvas.drawCircle(intersectPoints.get(i).getX() , intersectPoints.get(i).getY() , 10 , paint);
+        }
         Log.i("alaa" , "done for draw " + intersectPoints.size());
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float xPos = event.getX();
         float yPos = event.getY();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                drawPoints = true ;
+              startX = xPos ;
+                startY = yPos ;
+                endX = xPos ;
+                endY = yPos ;
                 startPoints.add(new PointF(xPos,yPos));
                 Log.i("alaat" , "ACTION mmmm " + xPos + "y =" + yPos);
+                invalidate();
                 return true;
             case MotionEvent.ACTION_MOVE:
+                endX = xPos ;
+                endY = yPos ;
                 // Log.i("alaat" , "motion now at x =   " + xPos + "y =" + yPos);
-                for(int i = 0 ; i < startPoints.size()-1 ; i++){
-                    PointF startPoint = startPoints.get(i);
-                    PointF stopPoint = stopPoints.get(i);
-                    //the conditions from which we know an intersect point is being drawn
-                    boolean flagX1 = (xPos >= Math.min( startPoint.getX(),stopPoint.getX())) && (xPos <= Math.max( startPoint.getX(),stopPoint.getX()));
-                    boolean flagX2 = (Math.max(stopPoint.getX(),xPos) - Math.min(stopPoint.getX(),xPos) < 14);
-                    boolean flagX3 = (Math.max(startPoint.getX(),xPos) - Math.min(startPoint.getX(),xPos) < 14);
-                    boolean flag1 = (Math.max(stopPoint.getY(),yPos) - Math.min(stopPoint.getY(),yPos) < 14);
-                    boolean flag2 = (Math.max(startPoint.getY(),yPos) - Math.min(startPoint.getY(),yPos) < 14);
-                    boolean flag3 = (yPos >= Math.min( startPoint.getY(),stopPoint.getY())) && (yPos <= Math.max( startPoint.getY(),stopPoint.getY()));
-
-                    if(!(donewith.contains(i))){
-                        if( flagX1 ||flagX2 || flagX3 ){
-                            if(flag1 || flag2 || flag3){
-                                Log.i("alaat" , "intersection at x =   " + xPos + "y =" + yPos + "with line " + i);
-                                intersectPoints.add(new PointF(xPos ,yPos));
-                                donewith.add(i);
-                            }}}
-                }
+                invalidate();
+                //return true;
+                // Log.i("alaat" , "motion now at x =   " + xPos + "y =" + yPos);
+//                for(int i = 0 ; i < startPoints.size()-1 ; i++){
+//                    PointF startPoint = startPoints.get(i);
+//                    PointF stopPoint = stopPoints.get(i);
+//                    //the conditions from which we know an intersect point is being drawn
+//                    boolean flagX1 = (xPos >= Math.min( startPoint.getX(),stopPoint.getX())) && (xPos <= Math.max( startPoint.getX(),stopPoint.getX()));
+//                    boolean flagX2 = (Math.max(stopPoint.getX(),xPos) - Math.min(stopPoint.getX(),xPos) < 14);
+//                    boolean flagX3 = (Math.max(startPoint.getX(),xPos) - Math.min(startPoint.getX(),xPos) < 14);
+//                    boolean flag1 = (Math.max(stopPoint.getY(),yPos) - Math.min(stopPoint.getY(),yPos) < 14);
+//                    boolean flag2 = (Math.max(startPoint.getY(),yPos) - Math.min(startPoint.getY(),yPos) < 14);
+//                    boolean flag3 = (yPos >= Math.min( startPoint.getY(),stopPoint.getY())) && (yPos <= Math.max( startPoint.getY(),stopPoint.getY()));
+//
+//                    if(!(donewith.contains(i))){
+//                        if( flagX1 ||flagX2 || flagX3 ){
+//                            if(flag1 || flag2 || flag3){
+//                                Log.i("alaat" , "intersection at x =   " + xPos + "y =" + yPos + "with line " + i);
+//                                intersectPoints.add(new PointF(xPos ,yPos));
+//                                donewith.add(i);
+//                            }}}
+//                }
                 return true;
             case MotionEvent.ACTION_UP:
-                stopPoints.add(new PointF(xPos,yPos));
+                endX=xPos ;
+                endY=yPos ;
+                Log.i("s" , "sx = " + startX +" sy = " + startY +" ex = " + endX +" ey = " +endY );
+                float x = Math.max((endX-startX) , (startX-endX));
+                float y = Math.max((endY-startY) , (startY-endY));
+                    if(x > y){
+                    Log.i("s" , "x " + endX +" y = " + startY);
+                    endY = startY ;
+                }else {
+                    Log.i("s" , "x " + startX +" y = " + endY);
+                        endX = startX ;
+                    //s[1] = endy ;
+                }
+                stopPoints.add(new PointF(endX,endY));
+                    checkIntersection();
                 Log.i("alaat" , "ACTION_UP  " + xPos + "y5tyyyy =" + yPos);
                 if(intersectPoints.size() != 0){
                     Log.i("alaaaa" , "before pushing " +donewith.size());
@@ -101,7 +128,7 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
                     }
                     donewithSTACK.push(done);
                 }
-
+                drawPoints = false ;
                 donewith.clear();
                 break;
             default:
@@ -113,6 +140,61 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
 
         return true ;
     }
+    private void checkIntersection() {
+        if(startPoints.size() > 1){
+            int lastIndex = startPoints.size()-1 ;
+            float constant ;
+
+            boolean in = false ;
+            float sx = startPoints.get(lastIndex).getX();
+            float sy = startPoints.get(lastIndex).getY();
+            float ex = stopPoints.get(lastIndex).getX();
+            float ey = stopPoints.get(lastIndex).getY();
+            if(ex-sx == 0){
+                constant = sx ;
+                float intersectY ;
+                for(int i = 0 ; i < startPoints.size()-1 ; i++){
+                    if(!(donewith.contains(i))){
+                    intersectY = startPoints.get(i).getY();
+                    float maxX = Math.max(startPoints.get(i).getX() ,stopPoints.get(i).getX()  );
+                    float minX = Math.min(startPoints.get(i).getX()  ,stopPoints.get(i).getX()  );
+//                    float maxY = Math.max(startPoints.get(i).getY() ,stopPoints.get(i).getY() );
+//                    float minY = Math.min(startPoints.get(i).getY() ,stopPoints.get(i).getY() );
+                    float minnyY = Math.min(sy ,ey );
+                    float maxxy = Math.max(sy ,ey );
+                    float intersect =  startPoints.get(i).getY();
+                    if(((maxX + 40 >= constant) && ((minX-40 <= constant)))){
+                        if(((intersect <= maxxy+40 && intersect>= minnyY-40))){
+
+                            Log.i("Intersection" , "at constants x = " + constant + " y = " + intersect +" " +
+                                    startPoints.get(i).getY()   );
+                            int[] ix = new int[2] ;
+                            donewith.add(i);
+                            intersectPoints.add(new PointF(constant , intersect));
+                            in = true ;
+                        }
+                    }}}
+            }else {
+                constant = sy ;
+                for(int i = 0 ; i < startPoints.size()-1 ; i++){
+                    if(!(donewith.contains(i))){
+//                    float maxX = Math.max(startPoints.get(i).getX() ,stopPoints.get(i).getX()  );
+//                    float minX = Math.min(startPoints.get(i).getX()  ,stopPoints.get(i).getX()  );
+                    float maxY = Math.max(startPoints.get(i).getY() ,stopPoints.get(i).getY() );
+                    float minY = Math.min(startPoints.get(i).getY() ,stopPoints.get(i).getY() );
+                    float minnyX = Math.min(sx ,ex );
+                    float maxxX= Math.max(sx ,ex );
+                    if(((maxY + 40 >= constant) && ((minY-40 <= constant)))){
+                        float intersect =  startPoints.get(i).getX();
+                        if((intersect <= maxxX+40 && intersect>= minnyX-40)){
+
+                            Log.i("Intersection" , "at constants x = " + intersect + " " + " y = " + constant);
+                            intersectPoints.add(new PointF(intersect , constant));
+                            donewith.add(i);
+                            in = true ;
+                        }
+                    }}}
+            }}}
     public ArrayList<PointF> getStartPoints(){
         return startPoints ;
     }
@@ -158,46 +240,6 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
     }
 }
 
-//
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        Log.i("alaa" , "done for 5ra");
-//        float xPos = event.getX();
-//        float yPos = event.getY();
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                xstart.add(xPos) ;
-//                ystart.add(yPos);
-//                Log.i("alaa" , "action down ");
-//                return true;
-//            case MotionEvent.ACTION_MOVE:
-//                Log.i("alaa" , "ACTION_MOVE  ");
-//                return true;
-//            case MotionEvent.ACTION_UP:
-//                xstop.add(xPos) ;
-//                ystop.add(yPos);
-//                Log.i("alaa" , "ACTION_UP  ");
-//                break;
-//            default:
-//                return false;
-//
-//        }
-//        invalidate();
-//
-//
-//        return true ;
-//    }
-//   public ArrayList<Float> getXstart(){
-//        return xstart ;
-//   }
-//    public ArrayList<Float> getYstart(){
-//        return ystart ;
-//    }
-//    public ArrayList<Float> getXstop(){
-//        return xstop ;
-//    }
-//    public ArrayList<Float> getYstop(){
-//        return ystop ;
-//    }
+
 
 

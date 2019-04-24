@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -35,11 +37,13 @@ public class performanceGraphActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_performance_graph);
        // hiitViewModel = of(this).get(HiitViewModel.class);
         date = (ArrayList<String>)getIntent().getSerializableExtra("d");
         heartRate = (ArrayList<Integer>)getIntent().getSerializableExtra("hr");
-        Log.i("date" , "pp " + date.size());
+        Log.i("performance" , "in graph activity the size is " + date.size());
         //setBorderColor(int color)
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
         //return back to menu
