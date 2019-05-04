@@ -71,17 +71,7 @@ public class FinalLayoutResult extends AppCompatActivity {
         final EditText text = new EditText(this);
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
         Button btn_save = (Button) findViewById(R.id.saveButton);
-       // hiitViewModel.deleteAllNotes();
-//        hiitViewModel.getAllLayouts().observe(this, new Observer<List<layoutTableDB>>() {
-//            @Override
-//            public void onChanged(@Nullable List<layoutTableDB> notes) {
-//                // Update recycler view
-//                //  Toast.makeText(MainActivity.this, "onChanges",Toast.LENGTH_SHORT).show();
-//                if (notes.size() > 0) {
-//                    Log.i("alaadb", " good " +notes.size());
-//
-//                }
-//            }});
+
         hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer profilesize) {
@@ -156,7 +146,7 @@ public class FinalLayoutResult extends AppCompatActivity {
 //
     }
     public void returntomainactivity(){
-        Intent intent = new Intent(FinalLayoutResult.this, ChooseLayoutActivity.class);
+        Intent intent = new Intent(FinalLayoutResult.this, MainActivity.class);
         startActivity(intent);
     }
 }

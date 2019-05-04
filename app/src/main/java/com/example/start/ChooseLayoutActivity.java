@@ -80,10 +80,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                v.startAnimation(anime_alpha);
-                Intent intent = new Intent(ChooseLayoutActivity.this , MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_in_right);
+                finish();
             }});
         adapter.setOnItemClickListener(new LayoutAdapter.OnItemClickListener() {
             @Override
