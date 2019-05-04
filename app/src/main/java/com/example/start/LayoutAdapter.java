@@ -27,12 +27,12 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
     public void onBindViewHolder(@NonNull LayoutHolder holder, int position) {
         layoutTableDB currentLayout = layouts.get(position);
         holder.textViewTitle.setText(currentLayout.getLayout_name());
-//        if(currentLayout.getUsed() == 1){
-//            //btn_save.setVisibility(View.GONE);
-//            holder.button_check.setVisibility(View.INVISIBLE);
-//        }else {
-//            holder.button_check.setVisibility(View.VISIBLE);
-//        }
+        if(currentLayout.getUsed() == 1){
+            //btn_save.setVisibility(View.GONE);
+            holder.button_check.setVisibility(View.INVISIBLE);
+        }else {
+            holder.button_check.setVisibility(View.VISIBLE);
+        }
 
     }
 
