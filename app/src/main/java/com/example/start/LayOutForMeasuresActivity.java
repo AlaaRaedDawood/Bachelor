@@ -49,8 +49,9 @@ Button button_back ;
         Button finish = (Button)(findViewById(R.id.button_layout_next)) ;
         finish.setOnClickListener(new View.OnClickListener() {
 
-           boolean flag = true ;
+
             public void onClick(View v) {
+                boolean flag = true ;
                 float[] measures = canvas.getResultMeasure() ;
                 if(measures.length == 0){
                     Toast toast=Toast.makeText(getApplicationContext(),"make sure to enter all sizes",Toast.LENGTH_SHORT);

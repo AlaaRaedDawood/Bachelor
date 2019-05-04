@@ -83,6 +83,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 v.startAnimation(anime_alpha);
                 Intent intent = new Intent(ChooseLayoutActivity.this , MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_in_right);
             }});
         adapter.setOnItemClickListener(new LayoutAdapter.OnItemClickListener() {
             @Override
