@@ -11,6 +11,7 @@ public class HiitViewModel extends AndroidViewModel {
     private  layoutRepository layoutrepository;
     private  performanceRepository performancerepository;
     private LiveData<List<layoutTableDB>> allLayouts;
+    private LiveData<List<layoutTableDB>> checkedTrueLayouts;
     private LiveData<List<ProfileTableDb>> allProfiles;
     private LiveData<Integer>   profileTableSize ;
     private LiveData<List<PerformanceTableDB>> allPerformance;
@@ -20,6 +21,7 @@ public class HiitViewModel extends AndroidViewModel {
         layoutrepository = new layoutRepository(application);
         performancerepository = new performanceRepository(application);
         allLayouts = layoutrepository.getAllLayouts();
+        checkedTrueLayouts = layoutrepository.getCheckedTrueLayout();
         allProfiles =  layoutrepository.getAllProfiles();
         profileTableSize = layoutrepository.getProfileRowsCount();
         allPerformance = performancerepository.getAllPerformnce();
@@ -43,6 +45,9 @@ public class HiitViewModel extends AndroidViewModel {
     }
     public LiveData<List<layoutTableDB>> getAllLayouts() {
         return allLayouts;
+    }
+    public LiveData<List<layoutTableDB>> getCheckedTrueLayouts() {
+        return checkedTrueLayouts;
     }
     //Profile
     public void insertProfile(ProfileTableDb profile) {

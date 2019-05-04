@@ -13,12 +13,14 @@ public class layoutRepository {
     private layoutDAO layoutDao;
     private profileDAO profiledao;
     private LiveData<List<layoutTableDB>> allLayout;
+    private LiveData<List<layoutTableDB>> checkedTrueLayout;
     private LiveData<List<ProfileTableDb>> allProfile;
     private LiveData<Integer> profileCount;
     public layoutRepository(Application application) {
         HiitDB database = HiitDB.getInstance(application);
         layoutDao = database.layoutdao();
         allLayout = layoutDao.getAllLayout();
+        checkedTrueLayout = layoutDao.getCheckedTrueLayout();
         profiledao = database.profiledao();
         allProfile = profiledao.getProfile();
         profileCount = profiledao.getProfileRowsCount();
@@ -43,6 +45,9 @@ public class layoutRepository {
 
     public LiveData<List<layoutTableDB>> getAllLayouts() {
         return allLayout;
+    }
+    public LiveData<List<layoutTableDB>> getCheckedTrueLayout() {
+        return checkedTrueLayout;
     }
     //Profile
     public void insertProfile(ProfileTableDb profileTableDb) {

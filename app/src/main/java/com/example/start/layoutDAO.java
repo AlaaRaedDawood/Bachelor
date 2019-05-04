@@ -24,4 +24,6 @@ public interface layoutDAO {
     void deleteAllNotes();
     @Query("SELECT * FROM layout_table")
     LiveData<List<layoutTableDB>> getAllLayout();
+    @Query("SELECT * FROM layout_table WHERE used = 1")
+    LiveData<List<layoutTableDB>> getCheckedTrueLayout();
 }

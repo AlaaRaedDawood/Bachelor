@@ -28,8 +28,8 @@
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -43,16 +43,30 @@
 
         <Button
             android:id="@+id/viewButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="102dp"
-            android:layout_marginRight="102dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginRight="70dp"
             android:background="@drawable/round_button"
             android:drawableTop="@drawable/ic_visibility"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <Button
+            android:id="@+id/chooseButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginRight="120dp"
+            android:background="@drawable/round_button"
+            android:drawableTop="@drawable/ic_check"
             android:gravity="center_vertical|center_horizontal" />
     </RelativeLayout>
 

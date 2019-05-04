@@ -27,6 +27,12 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
     public void onBindViewHolder(@NonNull LayoutHolder holder, int position) {
         layoutTableDB currentLayout = layouts.get(position);
         holder.textViewTitle.setText(currentLayout.getLayout_name());
+//        if(currentLayout.getUsed() == 1){
+//            //btn_save.setVisibility(View.GONE);
+//            holder.button_check.setVisibility(View.INVISIBLE);
+//        }else {
+//            holder.button_check.setVisibility(View.VISIBLE);
+//        }
 
     }
 
@@ -46,11 +52,13 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
         private TextView textViewTitle;
         private Button button_delete ;
         private Button button_view ;
+        private Button button_check ;
         public LayoutHolder(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             button_delete = itemView.findViewById(R.id.deleteButton);
             button_view = itemView.findViewById(R.id.viewButton);
+            button_check = itemView.findViewById(R.id.chooseButton);
             button_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,6 +79,16 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
                     }
                 }
             });
+            button_check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onChecklayout(layouts.get(position) , v);
+
+                    }
+                }
+            });
         }
 
     }
@@ -78,6 +96,7 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
         void onItemClick(layoutTableDB layout);
         void onDeleteLayout(layoutTableDB layout , View v);
         void onViewLayout (layoutTableDB layout , View v);
+        void onChecklayout(layoutTableDB layout, View v);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

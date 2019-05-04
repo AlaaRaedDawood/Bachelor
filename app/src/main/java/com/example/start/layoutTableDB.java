@@ -24,13 +24,13 @@ public class layoutTableDB  implements java.io.Serializable{
 
 
 
-    public layoutTableDB(String layout_name , ArrayList<PathLine> pathLines , ArrayList<PointF>  intersectPoints , ArrayList<PointF>  startPoints, ArrayList<PointF>  stopPoints){
+    public layoutTableDB(String layout_name , ArrayList<PathLine> pathLines , ArrayList<PointF>  intersectPoints , ArrayList<PointF>  startPoints, ArrayList<PointF>  stopPoints , int used){
        this.intersectPoints = intersectPoints ;
        this.pathLines = pathLines ;
        this.layout_name = layout_name;
        this.startPoints=startPoints;
        this.stopPoints=stopPoints;
-       this.used = 1 ;
+       this.used = used ;
    }
 
     public void setId(int id) {

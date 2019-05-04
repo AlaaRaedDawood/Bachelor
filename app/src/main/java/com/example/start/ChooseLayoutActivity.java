@@ -5,12 +5,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,11 +16,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.List;
+
 //the activity that allows the user to choose from the layout that available in db
 public class ChooseLayoutActivity extends AppCompatActivity {
     private HiitViewModel hiitViewModel ;
+    private ArrayList<layoutTableDB> usedLayout = new ArrayList<layoutTableDB>();
     private layoutTableDB choosenLayout ;
     private int profileSize ;
     private int layoutSize = 0 ;
@@ -55,11 +54,20 @@ public class ChooseLayoutActivity extends AppCompatActivity {
             }
         });
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
+        Button buttonBack = (Button) findViewById(R.id.button_back);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
 
+            public void onClick(View v) {
+                v.startAnimation(anime_alpha);
+                Intent intent = new Intent(ChooseLayoutActivity.this , MainActivity.class);
+                startActivity(intent);
+            }});
         adapter.setOnItemClickListener(new LayoutAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(layoutTableDB layout) {
-                choosenLayout = layout ;
+                Log.i("touched" ,"the layout name is " + layout.getLayout_name()+ " the profile used is " + layout.getUsed() );
+                Toast toast=Toast.makeText(getApplicationContext(),"the layout name is " + layout.getLayout_name()+ " the profile used is " + layout.getUsed(),Toast.LENGTH_SHORT);
+                toast.show();
               //  hiitViewModel.delete(layout);
             }
 
@@ -79,6 +87,39 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseLayoutActivity.this , ViewLayoutActivity.class);
                 intent.putExtra("layoutTableDb" ,layout);
                 startActivity(intent);
+
+            }
+
+            @Override
+            public void onChecklayout(final layoutTableDB layout, View v) {
+                v.startAnimation(anime_alpha);
+                Log.i("checked" , "name of required layout " + layout.getLayout_name());
+                 int count = 0 ;
+                hiitViewModel.getCheckedTrueLayouts().observe(ChooseLayoutActivity.this , new Observer<List<layoutTableDB>>() {
+                    @Override
+                    public void onChanged(@Nullable List<layoutTableDB> layouts) {
+                        usedLayout.clear();
+                       for (int i = 0 ; i < layouts.size() ; i ++){
+                           usedLayout.add(layouts.get(i));
+                       }
+                       Log.i("cc" , "usedLayout is " + usedLayout.size()) ;
+                   for (int i = 0 ; i < usedLayout.size() ; i++){
+                       Log.i("checked" , "name of chechecked profile " + usedLayout.get(i).getLayout_name());
+                       layoutTableDB c = usedLayout.get(i);
+                       layoutTableDB newLayout = new layoutTableDB(c.getLayout_name(),c.getPathLines(),c.getIntersectPoints()
+                       ,c.getStartPoints(),c.getStopPoints(),0);
+                       newLayout.setId(c.getId());
+                       hiitViewModel.update(newLayout);
+                   }
+
+                    layoutTableDB newLayout = new layoutTableDB(layout.getLayout_name(),layout.getPathLines(),layout.getIntersectPoints()
+                            ,layout.getStartPoints(),layout.getStopPoints(),1);
+                    newLayout.setId(layout.getId());
+                    Log.i("checked" , "new checked profile " + newLayout.getLayout_name());
+                    hiitViewModel.update(newLayout);
+
+                    }});
+
 
             }
 
@@ -106,21 +147,12 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-            }});
-        Button button_back = (Button) findViewById(R.id.addLayoutButton);
-        button_back.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-
-                    v.startAnimation(anime_alpha);
-                    Intent intent = new Intent(ChooseLayoutActivity.this , MainActivity.class);
-                    startActivity(intent);
+            }});}
 
 
-            }});
 
 
-    }
+
 
     }
 
