@@ -32,5 +32,6 @@
     <string name="play">Play</string>
     <string name="performance">View Performance</string>
     <string name="trial">Trial</string>
+    <string name="title_activity_traget_position">TragetPositionActivity</string>
 
 </resources>

@@ -46,7 +46,7 @@ dependencies {
     //add unity project
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":ARHIIT-release")
-    implementation(name: 'heartratee-release', ext:'aar')
-    implementation(name: 'VuforiaWrapper', ext:'aar')
+    implementation(name: 'heartratee-release', ext: 'aar')
+    implementation(name: 'VuforiaWrapper', ext: 'aar')
 
 }

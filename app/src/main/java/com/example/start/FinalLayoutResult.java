@@ -26,6 +26,9 @@ import java.util.List;
 public class FinalLayoutResult extends AppCompatActivity {
     private HiitViewModel hiitViewModel;
     private int profileSize ;
+    private boolean targetflag = false ;
+    private int targetindex = -1 ;
+    private int targetsize = -1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,7 +44,7 @@ public class FinalLayoutResult extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_final_layout_result);
         final FinalLayoutPath canvas  = (FinalLayoutPath) findViewById(R.id.result_canvas);
-        final targetPosition targetWall  = (targetPosition) findViewById(R.id.targetPosition);
+        //final targetPosition targetWall  = (targetPosition) findViewById(R.id.targetPosition);
         canvas.setStartPoints(startPoints);
         canvas.setStopPoints(stopPoints);
         canvas.setIntersectPoints(intersectedPoints);
@@ -57,15 +60,28 @@ public class FinalLayoutResult extends AppCompatActivity {
                     Log.i("region" , "SIZZZZZZEE sucess" + regions.size());
                     for(int i = 0 ;i< regions.size();i++){
                         if (regions.get(i).contains(xPos, yPos)) {
-                            targetWall.setShowTarget(i , canvas.getSize());
+                            targetflag = true ;
+                            targetindex = i ;
+                            targetsize = canvas.getSize();
+                           // targetWall.setShowTarget(i , canvas.getSize());
                             Log.i("region" , "region is selected" + i);
                             break;
                         }}
 
+                    if(targetflag){
+                        targetflag = false ;
+                        Intent intent = new Intent(FinalLayoutResult.this , TragetPositionActivity.class);
+                        intent.putExtra("index" , targetindex) ;
+                        intent.putExtra("size" , targetsize);
+                        startActivity(intent);
+
+                    }
                 }
+
                 return true;
             }
         });
+
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText text = new EditText(this);

@@ -20,6 +20,8 @@ public class targetPosition extends View {
     private int targetIndex = -1 ;
     private int targetSize = -1 ;
     private boolean showTarget = false;
+    private int user_height = -1 ;
+    private String backProblems = "" ;
     public targetPosition(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
@@ -57,7 +59,13 @@ public class targetPosition extends View {
         }
         paint.setColor(Color.GREEN);
             paint.setTextSize(80);
-        canvas.drawText("5 cm", 506 , 400, paint);
+            if(backProblems.equals("none")){
+                canvas.drawText(String.valueOf(user_height), 506 , 400, paint);
+            }
+            else {
+                canvas.drawText("100", 506 , 400, paint);
+            }
+
             paint.setTextSize(50);
             if((targetIndex != -1) && (targetSize != 0)) {
 
@@ -68,10 +76,12 @@ public class targetPosition extends View {
         canvas.drawRect((float) 456, (float) 200, (float) 556, (float) 300, paint);
             paint.setColor(Color.RED);
     }}
-    public void setShowTarget(int index , int regionSize){
+    public void setShowTarget(int index , int regionSize, int height  , String bProblems){
         showTarget = true ;
         targetIndex = index ;
         targetSize = regionSize ;
+        user_height =  height ;
+        backProblems = bProblems;
         invalidate();
     }
 }

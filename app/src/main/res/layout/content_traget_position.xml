@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".FinalLayoutResult"
-    tools:showIn="@layout/activity_final_layout_result">
+    tools:context=".TragetPositionActivity"
+    tools:showIn="@layout/activity_traget_position">
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -37,39 +37,16 @@
     </LinearLayout>
 
 
-    <com.example.start.FinalLayoutPath
-        android:id="@+id/result_canvas"
-        android:layout_width="0dp"
+    <com.example.start.targetPosition
+        android:id="@+id/targetPosition"
+        android:layout_width="match_parent"
         android:layout_height="360dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="67dp"
         android:background="#fafafa"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        />
 
-    <!--<com.example.start.targetPosition-->
-        <!--android:id="@+id/targetPosition"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="220dp"-->
 
-        <!--android:layout_marginTop="24dp"-->
-        <!--android:background="#fafafa"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/result_canvas" />-->
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="260dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/round_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/saveButton"
-        android:textColor="#fff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/result_canvas" />
 
 </android.support.constraint.ConstraintLayout>

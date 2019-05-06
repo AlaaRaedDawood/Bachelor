@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public class ViewLayoutCanvas extends View {
     private Paint paint;
+    private int createRegion = 0 ;
     ArrayList<PointF> intersectPoints = new ArrayList<PointF>();
     private ArrayList<PointF> startPoints = new ArrayList<PointF>();
     private ArrayList<PointF> stopPoints = new ArrayList<PointF>();
+    ArrayList<Region> regions = new ArrayList<Region>();
     private ArrayList<PathLine> pathLines = new ArrayList<PathLine>();
 
 
@@ -52,11 +54,13 @@ public class ViewLayoutCanvas extends View {
                     for (int radius = 0; radius < 41; radius++) {
                         canvas.drawCircle(intersectPoints.get(i).getX(), intersectPoints.get(i).getY(), radius, paint);
                     }
-
+                    if (createRegion == 0) {
+                        regions.add(new Region((int) (intersectPoints.get(i).getX() - 40), (int) (intersectPoints.get(i).getY() - 40), (int) (intersectPoints.get(i).getX() + 40), (int) (intersectPoints.get(i).getY() + 40)));
+                    }
                     //Log.i("alaa", "the x = " + resultPoints.get(i).getX() + " y = " + resultPoints.get(i).getY());
 
                 }
-
+                createRegion ++ ;
             }
         }
         for (int i = 0; i < startPoints.size(); i++) {
@@ -75,5 +79,8 @@ public class ViewLayoutCanvas extends View {
     public void setIntersectPoints (ArrayList<PointF> intersectPoints){
 
         this.intersectPoints = intersectPoints ;
+    }
+    public ArrayList<Region> getRegions() {
+        return regions;
     }
 }
