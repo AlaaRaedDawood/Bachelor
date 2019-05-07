@@ -26,4 +26,7 @@ public class IntersectedPoints  implements java.io.Serializable {
     public int getId(){
         return  Id ;
     }
+    public void setPoint(PointF point){
+        this.point = point ;
+    }
 }
