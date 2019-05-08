@@ -27,6 +27,7 @@ public class listConverter {
 
 
     }
+
     @TypeConverter
     public static ArrayList<PathLine> stringToPathLineList(String data) {
         Type listType = new TypeToken<ArrayList<PathLine>>() {}.getType();
@@ -36,6 +37,24 @@ public class listConverter {
 
 
     }
+    @TypeConverter
+    public static ArrayList<IntersectedPoints> stringToIntersectedPoints(String data) {
+        Type listType = new TypeToken<ArrayList<IntersectedPoints>>() {}.getType();
+        Log.i("alaa" , "  tttt "+data);
+        return new Gson().fromJson(data, listType);
+
+
+
+    }
+//    @TypeConverter
+//    public static ArrayList<int[]> stringTointarrayList(String data) {
+//        Type listType = new TypeToken<ArrayList<int[]>>() {}.getType();
+//        Log.i("alaa" , "  tttt "+data);
+//        return new Gson().fromJson(data, listType);
+//
+//
+//
+//    }
     @TypeConverter
     public static String PointFListToString(ArrayList<PointF>  someObjects) {
         Gson gson = new Gson();
@@ -54,5 +73,23 @@ public class listConverter {
         }
         return json;
     }
+    @TypeConverter
+    public static String IntersectedPointsListToString(ArrayList<IntersectedPoints>  someObjects) {
+        Gson gson = new Gson();
+        String json = gson.toJson(someObjects);
+        if(json == null ){
+            Log.i("alaadbb" , "atfsh5naa");
+        }
+        return json;
+    }
+//    @TypeConverter
+//    public static String IntarrayListToString(ArrayList<int[]>  someObjects) {
+//        Gson gson = new Gson();
+//        String json = gson.toJson(someObjects);
+//        if(json == null ){
+//            Log.i("alaadbb" , "atfsh5naa");
+//        }
+//        return json;
+//    }
 }
 

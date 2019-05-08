@@ -117,7 +117,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 if(checkedTrue != null){
                     Log.i("check" , "previous layout = " + checkedTrue.getLayout_name() +
                             " new checked layout = " + layout.getLayout_name());
-                     newLayout = new layoutTableDB(checkedTrue.getLayout_name(),checkedTrue.getPathLines(),checkedTrue.getIntersectPoints()
+                     newLayout = new layoutTableDB(checkedTrue.getLayout_name(),checkedTrue.getIntersect(),checkedTrue.getPathLines(),checkedTrue.getIntersectPoints()
                             ,checkedTrue.getStartPoints(),checkedTrue.getStopPoints(),0);
                     newLayout.setId(checkedTrue.getId());
                     hiitViewModel.update(newLayout);
@@ -125,33 +125,22 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 Log.i("checked" , "name of required layout " + layout.getLayout_name());
                  int count = 0 ;
 
-                newLayout = new layoutTableDB(layout.getLayout_name(),layout.getPathLines(),layout.getIntersectPoints()
+                newLayout = new layoutTableDB(layout.getLayout_name(),layout.getIntersect(),layout.getPathLines(),layout.getIntersectPoints()
                         ,layout.getStartPoints(),layout.getStopPoints(),1);
                 newLayout.setId(layout.getId());
                 checkedTrue = newLayout ;
                 Log.i("checked" , "new checked profile " + newLayout.getLayout_name());
                 hiitViewModel.update(newLayout);
 
-//                hiitViewModel.getCheckedTrueLayouts().observe(ChooseLayoutActivity.this , new Observer<List<layoutTableDB>>() {
-//                    @Override
-//                    public void onChanged(@Nullable List<layoutTableDB> layouts) {
-//                        usedLayout.clear();
-//                       for (int i = 0 ; i < layouts.size() ; i ++){
-//                           usedLayout.add(layouts.get(i));
-//                       }
-//                       Log.i("cc" , "usedLayout is " + usedLayout.size()) ;
-//                   for (int i = 0 ; i < usedLayout.size() ; i++){
-//                       Log.i("checked" , "name of chechecked profile " + usedLayout.get(i).getLayout_name());
-//                       layoutTableDB c = usedLayout.get(i);
-//                       layoutTableDB newLayout = new layoutTableDB(c.getLayout_name(),c.getPathLines(),c.getIntersectPoints()
-//                       ,c.getStartPoints(),c.getStopPoints(),0);
-//                       newLayout.setId(c.getId());
-//                       hiitViewModel.update(newLayout);
-//                   }
-//
-//
-//
-//                    }});
+            }
+            @Override
+            public void onEditlayout(final layoutTableDB layout, View v) {
+                v.startAnimation(anime_alpha);
+                Intent intent = new Intent(ChooseLayoutActivity.this , DrawLayoutActivity.class);
+                // 0  if edit , 1 if create
+                intent.putExtra("editORcreate" ,0);
+                intent.putExtra("layoutTableDb" ,layout);
+                startActivity(intent);
 
 
             }
@@ -177,6 +166,7 @@ public class ChooseLayoutActivity extends AppCompatActivity {
                 }else {
                     v.startAnimation(anime_alpha);
                     Intent intent = new Intent(ChooseLayoutActivity.this , DrawLayoutActivity.class);
+                    intent.putExtra("editORcreate" ,1);
                     startActivity(intent);
                 }
 

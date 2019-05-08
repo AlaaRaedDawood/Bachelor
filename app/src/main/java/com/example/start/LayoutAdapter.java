@@ -53,11 +53,13 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
         private Button button_delete ;
         private Button button_view ;
         private Button button_check ;
+        private Button button_edit;
         public LayoutHolder(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             button_delete = itemView.findViewById(R.id.deleteButton);
             button_view = itemView.findViewById(R.id.viewButton);
+            button_edit = itemView.findViewById(R.id.editButton);
             button_check = itemView.findViewById(R.id.chooseButton);
             button_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,6 +81,16 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
                     }
                 }
             });
+            button_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onEditlayout(layouts.get(position) , v);
+
+                    }
+                }
+            });
             button_check.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,6 +108,7 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutHold
         void onItemClick(layoutTableDB layout);
         void onDeleteLayout(layoutTableDB layout , View v);
         void onViewLayout (layoutTableDB layout , View v);
+        void onEditlayout(layoutTableDB layout, View v);
         void onChecklayout(layoutTableDB layout, View v);
     }
 

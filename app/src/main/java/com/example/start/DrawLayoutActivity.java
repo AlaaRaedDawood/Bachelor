@@ -21,18 +21,30 @@ public class DrawLayoutActivity extends AppCompatActivity {
 //    ArrayList<Float>  ystart ;
 //    ArrayList<Float>  xstop ;
 //    ArrayList<Float>  ystop ;
-ArrayList<PointF> startPoints = new ArrayList<PointF>();
-     Button button_next ;
-    Button button_back ;
+    private int layoutEditID = -1 ;
+    private ArrayList<PointF> startPoints = new ArrayList<PointF>();
+    private Button button_next ;
+    private Button button_back ;
+    private int createOredit = -1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_draw_layout);
+        createOredit = getIntent().getIntExtra("editORcreate" ,-1);
+
         CoordinatorLayout constraintLayout = (CoordinatorLayout)findViewById(R.id.drawlayout_Layout);
 
         final LayoutCanvas canvas = (LayoutCanvas) findViewById(R.id.draw_canvas);
+        if(createOredit == 0){
+            final layoutTableDB currentLayout = (layoutTableDB)getIntent().getSerializableExtra("layoutTableDb");
+            canvas.setStartPoints(currentLayout.getStartPoints());
+            canvas.setStopPoints(currentLayout.getStopPoints());
+            //canvas.setDonewithStack(currentLayout.getDoneWith());
+            canvas.setIntersectedPoints(currentLayout.getIntersect());
+            layoutEditID = currentLayout.getId();
+        }
         button_back = (Button) findViewById(R.id.button_back);
         button_back.setOnClickListener(new View.OnClickListener() {
 
@@ -66,6 +78,7 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                 startPoints = canvas.getStartPoints();
                 ArrayList<PointF> stopPoints = canvas.getStopPoints();
                 ArrayList<IntersectedPoints> intersectedPoints = canvas.getIntersectedPoints();
+                //ArrayList<int[]> donewithStack = canvas.getDonewithStack();
                 // Start NewActivity.class
 
 
@@ -87,6 +100,7 @@ ArrayList<PointF> startPoints = new ArrayList<PointF>();
                     intent.putExtra("startPoints" , startPoints);
                     intent.putExtra("stopPoints" , stopPoints);
                     intent.putExtra("intersectedPoints" ,intersectedPoints);
+                    intent.putExtra("layoutEditID" ,layoutEditID);
                     startActivity(intent);
                     //Log.i("alaa", "ssizzee of x is " + xstart.size());
                 }else {

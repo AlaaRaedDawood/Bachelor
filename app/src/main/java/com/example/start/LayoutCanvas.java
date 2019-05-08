@@ -351,22 +351,95 @@ private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints
     public ArrayList<IntersectedPoints> getIntersectedPoints(){
         return intersect ;
     }
+    public ArrayList<int[]> getDonewithStack(){
+        ArrayList<int[]> donewithstackArray = new ArrayList<>();
+        for(int i = 0 ; i < donewithSTACK.size() ; i++){
+            donewithstackArray.add(donewithSTACK.pop());
+        }
+        return donewithstackArray ;
+    }
+    public void setStartPoints(ArrayList<PointF> x){
+
+        startPoints = x;
+    }
+    public void setStopPoints(ArrayList<PointF> x){
+
+        stopPoints = x;
+    }
+    public void setIntersectedPoints(ArrayList<IntersectedPoints> x){
+
+         intersect = x ;
+         for(int i = 0 ; i <intersect.size() ; i ++){
+             intersectPoints.add(intersect.get(i).getPoint());
+         }
+    }
+    public void setDonewithStack(ArrayList<int[]> x){
+        ArrayList<int[]> donewithstackArray = new ArrayList<>();
+        for(int i = 0 ; i < x.size() ; i++){
+          donewithSTACK.push(x.get(i));
+        }
+    }
 
     public void resetDrawing(){
         Log.i("alaa" ,"intersectedpoints" + intersectPoints.size());
 
-        if(!(donewithSTACK.empty())) {
-            Log.i("aaaaaaaaaaaaa" , "donewithSTACK is "+ donewithSTACK.size());
-            int[] x = donewithSTACK.pop();
-            int xsize = x.length;
-            Log.i("aaaaaaaaaaaaa" , "xsize is "+ x.length);
-            for (int i = 0; i < xsize; i++) {
-                intersect.remove((intersect.size() - 1));
-                Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());
-                intersectPoints.remove((intersectPoints.size() - 1));
-                if(intersectPointID != 0 ) {
-                    intersectPointID -= 1;
-                }
+//        if(!(donewithSTACK.empty())) {
+//            Log.i("aaaaaaaaaaaaa" , "donewithSTACK is "+ donewithSTACK.size());
+//            int[] x = donewithSTACK.pop();
+//            int xsize = x.length;
+//            Log.i("aaaaaaaaaaaaa" , "xsize is "+ x.length);
+//            for (int i = 0; i < xsize; i++) {
+//                intersect.remove((intersect.size() - 1));
+//                Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());
+//                intersectPoints.remove((intersectPoints.size() - 1));
+//                if(intersectPointID != 0 ) {
+//                    intersectPointID -= 1;
+//                }
+//            }
+//        }
+        Log.i("intersect" , "size of intersection " +intersectPoints.size());
+         ArrayList<Integer> index = new ArrayList<>();
+        ArrayList<Integer> intersectIndex = new ArrayList<>();
+          PointF startPoint = startPoints.get(startPoints.size() - 1);
+          PointF stopPoint = stopPoints.get(stopPoints.size() - 1);
+          for(int i = 0 ; i < intersectPoints.size() ; i ++){
+            boolean flag1 = (intersectPoints.get(i).getX() == startPoint.getX()) && (intersectPoints.get(i).getY() == startPoint.getY());
+            boolean flag2 = (intersectPoints.get(i).getX() == stopPoint.getX()) && (intersectPoints.get(i).getY() == stopPoint.getY());
+            Log.i("intersect" , "flag1" + flag1 + " flag2 " + flag2);
+            if(flag1 || flag2)  {
+                index.add(i);
+                Log.i("intersect" , "flag is true " +i);
+
+            }
+        }
+        for(int i = 0 ; i < intersect.size() ; i ++){
+            boolean flag1 = (intersect.get(i).getPoint().getX() == startPoint.getX()) && (intersect.get(i).getPoint().getY() == startPoint.getY());
+            boolean flag2 = (intersect.get(i).getPoint().getX() == stopPoint.getX()) && (intersect.get(i).getPoint().getY() == stopPoint.getY());
+            Log.i("intersect" , "flag1" + flag1 + " flag2 " + flag2);
+            if(flag1 || flag2)  {
+                intersectIndex.add(i);
+                Log.i("intersect" , "intersectarray flag is true " +i);
+
+            }
+        }
+          Log.i("intersect" , "size of index = " + index.size());
+          for(int i = index.size()-1  ; i > -1 ; i--){
+              Log.i("intersect" , "before removing size = "+ intersectPoints.size());
+              PointF in = intersectPoints.get(index.get(i));
+              intersectPoints.remove(in);
+
+              intersect.remove(index.get(i));
+              Log.i("intersect" , "i am here " + index.get(i) +" size = "+ intersectPoints.size());
+
+          }
+        for(int i = intersectIndex.size()-1  ; i > -1 ; i--){
+            Log.i("intersect" , "intersect array before removing size = "+ intersect.size());
+            IntersectedPoints in = intersect.get(index.get(i));
+            intersect.remove(in);
+            //intersect.remove(index.get(i));
+            Log.i("intersect" , "i am here " + index.get(i) +" size = "+ intersect.size());
+            if(intersectPointID != 0 ) {
+                intersectPointID -= 1;
             }
         }
 //        Log.i("alaa", "intersectedpoints x = " + intersectPoints.get(intersectPoints.size()-1).getX());

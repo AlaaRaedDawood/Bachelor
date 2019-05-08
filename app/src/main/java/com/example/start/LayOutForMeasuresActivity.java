@@ -22,8 +22,9 @@ public class LayOutForMeasuresActivity extends AppCompatActivity {
 //    ArrayList<Float>  ystart ;
 //    ArrayList<Float>  xstop ;
 //    ArrayList<Float>  ystop ;
-Button button_back ;
-    float[] sizes ;
+    private Button button_back ;
+    private float[] sizes ;
+    private int layoutEditID = -1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ Button button_back ;
         final ArrayList<PointF> startPoints =(ArrayList<PointF>)getIntent().getSerializableExtra("startPoints"); ;
         final ArrayList<PointF> stopPoints = (ArrayList<PointF>)getIntent().getSerializableExtra("stopPoints");
         final ArrayList<IntersectedPoints> intersectedPoints = (ArrayList<IntersectedPoints>)getIntent().getSerializableExtra("intersectedPoints");
-
+        layoutEditID = getIntent().getIntExtra("layoutEditID" , -1);
         canvas.setStartPoints(startPoints);
         canvas.setStopPoints(stopPoints);
 
@@ -74,6 +75,7 @@ Button button_back ;
                 intent.putExtra("startPoints", startPoints);
                 intent.putExtra("stopPoints", stopPoints);
                 intent.putExtra("intersectedPoints", intersectedPoints);
+                intent.putExtra("layoutEditID" , layoutEditID);
                 intent.putExtra("lineSizes" , measures);
 
                 startActivity(intent);

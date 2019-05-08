@@ -19,13 +19,15 @@ public class layoutTableDB  implements java.io.Serializable{
     public ArrayList<PointF> startPoints = new ArrayList<PointF>();
     private ArrayList<PointF> stopPoints = new ArrayList<PointF>();
    private ArrayList<PointF> intersectPoints = new ArrayList<PointF>();
-   private ArrayList<PathLine> pathLines = new ArrayList<PathLine>();
+    private ArrayList<IntersectedPoints> intersect = new ArrayList<IntersectedPoints>();
+    private ArrayList<PathLine> pathLines = new ArrayList<PathLine>();
    private int used ;
 
 
 
-    public layoutTableDB(String layout_name , ArrayList<PathLine> pathLines , ArrayList<PointF>  intersectPoints , ArrayList<PointF>  startPoints, ArrayList<PointF>  stopPoints , int used){
+    public layoutTableDB(String layout_name , ArrayList<IntersectedPoints> intersect, ArrayList<PathLine> pathLines , ArrayList<PointF>  intersectPoints , ArrayList<PointF>  startPoints, ArrayList<PointF>  stopPoints , int used){
        this.intersectPoints = intersectPoints ;
+       this.intersect = intersect;
        this.pathLines = pathLines ;
        this.layout_name = layout_name;
        this.startPoints=startPoints;
@@ -55,6 +57,12 @@ public class layoutTableDB  implements java.io.Serializable{
 
        return stopPoints ;
     }
+
+    public ArrayList<IntersectedPoints> getIntersect() {
+        return intersect;
+    }
+
+
     public String getLayout_name(){
 
        return layout_name ;

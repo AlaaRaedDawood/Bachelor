@@ -29,6 +29,7 @@ public class FinalLayoutResult extends AppCompatActivity {
     private boolean targetflag = false ;
     private int targetindex = -1 ;
     private int targetsize = -1 ;
+    private int layoutEditID = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,6 +40,7 @@ public class FinalLayoutResult extends AppCompatActivity {
         final ArrayList<PointF> startPoints =(ArrayList<PointF>)getIntent().getSerializableExtra("startPoints"); ;
         final ArrayList<PointF> stopPoints = (ArrayList<PointF>)getIntent().getSerializableExtra("stopPoints");
         final ArrayList<IntersectedPoints> intersectedPoints = (ArrayList<IntersectedPoints>)getIntent().getSerializableExtra("intersectedPoints");
+        layoutEditID = getIntent().getIntExtra("layoutEditID" , -1);
         float[] size = getIntent().getFloatArrayExtra("lineSizes");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -87,7 +89,7 @@ public class FinalLayoutResult extends AppCompatActivity {
         final EditText text = new EditText(this);
         final Animation anime_alpha = AnimationUtils.loadAnimation(this ,R.anim.alpha_button);
         Button btn_save = (Button) findViewById(R.id.saveButton);
-
+        Button btn_edit = (Button) findViewById(R.id.editButton);
         hiitViewModel.getProfileSize().observe(this , new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer profilesize) {
@@ -95,6 +97,14 @@ public class FinalLayoutResult extends AppCompatActivity {
                 Log.i("DB" , "the profile size is " + profilesize);
 
             }});
+        if(layoutEditID == -1){
+            btn_save.setVisibility(View.VISIBLE);
+            btn_edit.setVisibility(View.INVISIBLE);
+        }else {
+            btn_edit.setVisibility(View.VISIBLE);
+            btn_save.setVisibility(View.INVISIBLE);
+        }
+
         btn_save.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -125,7 +135,7 @@ public class FinalLayoutResult extends AppCompatActivity {
                                     if (!flag) {
 
                                         String layout_title = text.getText().toString();
-                                        layoutTableDB layout = new layoutTableDB(layout_title,canvas.getPlines() ,canvas.getIntersectPointF(),
+                                        layoutTableDB layout = new layoutTableDB(layout_title,canvas.getIntersectPoints(),canvas.getPlines() ,canvas.getIntersectPointF(),
                                                 canvas.getStartPointsPoint(), canvas.getStopPointsPoint(),0);
 
                                         if (layout != null) {
@@ -141,6 +151,67 @@ public class FinalLayoutResult extends AppCompatActivity {
 //                                    finish();
 //                                    Intent i = new Intent(FinalLayoutResult.this , MainActivity.class);
 //                                    startActivity(i);
+
+
+                                    }
+
+                                }
+                            });
+
+
+                        }
+                    }, 500);
+
+
+                }else {
+                    Toast toast=Toast.makeText(getApplicationContext(),"a profile needed to be saved",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                Log.i("alaa","save button is clicked");
+                if(profileSize == 1) {
+                    //make alpha animation
+                    v.startAnimation(anime_alpha);
+                    //show a dialogue that takes from the user the name of the layout
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            builder.setMessage("the name of the layout  ").setView(text);
+                            builder.setPositiveButton("DONE",
+                                    null);
+                            builder.setNegativeButton("Cancel" , null);
+
+                            final AlertDialog alert = builder.create();
+                            alert.show();
+                            alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Boolean flag = (text.getText().toString().trim().isEmpty());
+                                    // if EditText is empty disable closing on possitive button
+                                    if (!flag) {
+
+                                        String layout_title = text.getText().toString();
+                                        layoutTableDB layout = new layoutTableDB(layout_title,canvas.getIntersectPoints(),canvas.getPlines() ,canvas.getIntersectPointF(),
+                                                canvas.getStartPointsPoint(), canvas.getStopPointsPoint(),0);
+
+                                        if (layout != null) {
+                                            layout.setId(layoutEditID);
+
+                                            hiitViewModel.update(layout);
+
+                                            Log.i("alaa", "layout is updated");
+                                            returntomainactivity();
+                                        }
+
+                                        alert.dismiss();
 
 
                                     }

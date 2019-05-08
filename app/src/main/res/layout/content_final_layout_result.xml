@@ -71,5 +71,17 @@
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/result_canvas" />
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/round_button"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/editB"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_canvas" />
 
 </android.support.constraint.ConstraintLayout>
