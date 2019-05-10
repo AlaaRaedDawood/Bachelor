@@ -69,8 +69,8 @@ public class targetPosition extends View {
             paint.setTextSize(50);
             if((targetIndex != -1) && (targetSize != 0)) {
 
-                canvas.drawText(Integer.toString(targetIndex +1), 506, 250, paint);
-                canvas.drawText(Integer.toString(targetIndex +1 + targetSize), 506, 550, paint);
+                canvas.drawText(Integer.toString(targetIndex +1 + targetSize), 506, 250, paint);
+                canvas.drawText(Integer.toString(targetIndex +1 ), 506, 550, paint);
             }
         canvas.drawRect((float) 456, (float) 500, (float) 556, (float) 600, paint);
         canvas.drawRect((float) 456, (float) 200, (float) 556, (float) 300, paint);

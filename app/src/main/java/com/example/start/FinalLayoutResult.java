@@ -30,6 +30,7 @@ public class FinalLayoutResult extends AppCompatActivity {
     private int targetindex = -1 ;
     private int targetsize = -1 ;
     private int layoutEditID = -1;
+    private int buttonClicked = 0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -108,9 +109,9 @@ public class FinalLayoutResult extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
+                buttonClicked += 1 ;
                 Log.i("alaa","save button is clicked");
-                if(profileSize == 1) {
+                if((profileSize == 1 )&& (buttonClicked == 1)) {
                     //make alpha animation
                     v.startAnimation(anime_alpha);
                     //show a dialogue that takes from the user the name of the layout
@@ -126,6 +127,7 @@ public class FinalLayoutResult extends AppCompatActivity {
 
 
                             final AlertDialog alert = builder.create();
+
                             alert.show();
                             alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -173,8 +175,9 @@ public class FinalLayoutResult extends AppCompatActivity {
 
             public void onClick(View v) {
 
+                buttonClicked += 1 ;
                 Log.i("alaa","save button is clicked");
-                if(profileSize == 1) {
+                if((profileSize == 1 )&& (buttonClicked == 1)) {
                     //make alpha animation
                     v.startAnimation(anime_alpha);
                     //show a dialogue that takes from the user the name of the layout

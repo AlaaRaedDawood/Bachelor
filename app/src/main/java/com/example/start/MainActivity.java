@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.startAnimation(anime_translate);
                 Intent i = new Intent(MainActivity.this , performanceGraphActivity.class);
-                i.putExtra("d" , date);
-                i.putExtra("hr" , heartRate);
+                //i.putExtra("d" , date);
+               // i.putExtra("hr" , heartRate);
                 startActivity(i);
 
             }
