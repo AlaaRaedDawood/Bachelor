@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.Region;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -110,7 +111,7 @@ public class LayOutCanvasResult extends View {
                     public void run() {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                         final EditText text = new EditText(getContext());
-
+                        text.setInputType(InputType.TYPE_CLASS_NUMBER);
                         builder.setTitle("Set your measurments")
                                 .setMessage("the measure of distance is  for line " + selectedLine + " :").setView(text);
                         builder.setPositiveButton("DONE",

@@ -20,26 +20,32 @@
         <activity
             android:name=".TragetPositionActivity"
             android:label="@string/title_activity_traget_position"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".performanceGraphActivity"
             android:label="@string/title_activity_performance_graph"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewLayoutActivity"
             android:label="@string/title_activity_view_layout"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChooseLayoutActivity"
             android:label="@string/title_activity_choose_layout"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PrintMarkers"
             android:label="@string/title_activity_print_markers"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FinalLayoutResult"
